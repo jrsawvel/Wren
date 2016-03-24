@@ -1,0 +1,25 @@
+    template_home:                  /home/wren/Wren/tmpl
+    site_name:                      Wren
+    app_name:                       Wren v1.0
+    home_page:                      http://wren.soupmode.com
+    site_description:               Static Blog Tool
+    domain_name:                    wren.soupmode.com
+    cookie_prefix:                  wren 
+    css_dir_url:                    http://wren.soupmode.com/css 
+    maincss_url:                    http://wren.soupmode.com/css/wren.css
+    api_url:                        http://wren.soupmode.com/api/v1
+    author_name:                    cawr
+    author_email:                   jothut@fastmail.fm
+    markup_storage:                 /home/wren/markup
+    session_id_storage:             /home/wren/sessionids
+    versions_storage:               /home/wren/Wren/root/versions
+    default_doc_root:               /home/wren/Wren/root
+    debug_mode:                     0
+    mailgun_api_key:                key-5l7fk1h9d4xowey4-arizir8d1pfj2l6
+    mailgun_domain:                 sandboxffa412804e3146b4a2e29883e9a542a6.mailgun.org
+    mailgun_from:                   Mailgun Sandbox <postmaster@sandboxffa412804e3146b4a2e29883e9a542a6.mailgun.org>
+    links_json_file:                /home/wren/Wren/root/links.json
+    rss_file:                       /home/wren/Wren/root/rss.xml
+    mft_file:                       /home/wren/Wren/root/mft.html
+    sitemap_file:                   /home/wren/Wren/root/sitemap.xml
+    max_entries:                    20
