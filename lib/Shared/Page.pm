@@ -91,6 +91,23 @@ use NEXT;
         return $self->{TMPL}->output;
     }
 
+    sub display_page_min {
+        my ($self, $function) = @_;
+
+        my @http_header = ("Content-type: text/html;\n\n", "");
+        my $http_header_var = 0;
+        print $http_header[$http_header_var]; 
+
+        my $site_name       =  Config::get_value_for("site_name");
+
+        __set_template_variable($self, "home_page",    Config::get_value_for("home_page"));
+        __set_template_variable($self, "site_name",    $site_name);
+
+        print $self->{TMPL}->output;
+
+        exit;
+    }
+
     sub display_page {
         my ($self, $function) = @_;
 

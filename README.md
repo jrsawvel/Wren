@@ -55,6 +55,8 @@ In the Wren YAML configuration file, the following directories need to be specif
 Special Wren commands are listed within HMTL comments in the markup.
 
 * `<!-- toc : yes -->` - create a table of contents. default is NO.
+* `<!-- url_to_link : yes -->` - auto-link raw URLs. default is NO. 
+* `<!-- newline_to_br : no -->` - preserve hard line breaks in html. default is YES. 
 * `<!-- slug : slugname -->` - example for the homepage = `slug:index`
 * `<!-- dir:directory-location -->` - example = `dir:2006/03/24`
      

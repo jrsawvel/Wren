@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use HTML::Entities;
-#use URI::Escape::JavaScript qw(escape unescape);
+use URI::Escape::JavaScript qw(escape unescape);
 use API::PostTitle;
 use API::Format;
 use API::Files;
@@ -40,8 +40,8 @@ sub update_post {
 
     my $formtype = $hash_ref->{'form_type'};
     if ( $formtype eq "ajax" ) {
-#        $markup = URI::Escape::JavaScript::unescape($markup);
-#        $markup = HTML::Entities::encode($markup, '^\n\x20-\x25\x27-\x7e');
+        $markup = URI::Escape::JavaScript::unescape($markup);
+        $markup = HTML::Entities::encode($markup, '^\n\x20-\x25\x27-\x7e');
     } else {
 #        $markup = Encode::decode_utf8($markup);
     }

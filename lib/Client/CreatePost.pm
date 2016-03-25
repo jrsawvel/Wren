@@ -22,6 +22,26 @@ sub show_new_post_form {
     $t->display_page("Compose new post");
 }
 
+
+sub show_splitscreen_form {
+
+    my $author_name  = User::get_logged_in_author_name(); 
+    my $session_id   = User::get_logged_in_session_id(); 
+    my $rev          = User::get_logged_in_rev(); 
+
+    if ( !$author_name or !$session_id or !$rev ) {
+        Page->report_error("user", "Cannot peform action.", "You are not logged in.");
+    }
+
+    my $t = Page->new("splitscreenform");
+    $t->set_template_variable("action", "addarticle");
+    $t->set_template_variable("api_url", Config::get_value_for("api_url"));
+    $t->set_template_variable("post_id", 0);
+    $t->set_template_variable("post_rev", "undef");
+    $t->display_page_min("Creating Post - Split Screen");
+}
+
+
 sub create_post {
 
     my $author_name  = User::get_logged_in_author_name(); 

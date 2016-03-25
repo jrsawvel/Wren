@@ -48,7 +48,8 @@ sub show_post_to_edit {
         my $t = Page->new("updatepostform");
         $t->set_template_variable("html_file", "$post_id.html");
         $t->set_template_variable("original_slug", $post_id);
-        $t->set_template_variable("markup", $json->{markup});
+        # $t->set_template_variable("markup", $json->{markup});
+        $t->set_template_variable("markup",     decode_entities($json->{markup}, '<>&'));
         $t->display_page("Updating Post $json->{title}");
         exit;
     } elsif ( $rc >= 400 and $rc < 500 ) {
@@ -57,6 +58,57 @@ sub show_post_to_edit {
         Page->report_error("user", "Unable to complete request. Invalid response code returned from API.", "$json->{user_message} $json->{system_message}");
     }
 }
+
+sub splitscreen_edit {
+    my $tmp_hash = shift;  
+
+    my $author_name  = User::get_logged_in_author_name(); 
+    my $session_id   = User::get_logged_in_session_id(); 
+    my $rev          = User::get_logged_in_rev(); 
+
+    if ( !$author_name or !$session_id or !$rev ) {
+        Page->report_error("user", "Cannot peform action.", "You are not logged in.");
+    }
+
+    my $post_id;
+
+    my $hash_length = scalar keys $tmp_hash;
+    if ( $hash_length > 2 ) {
+        for ( my $i=1; $i<$hash_length; $i++ ) {
+            $post_id .= $tmp_hash->{$i} . "/";
+        } 
+        chop($post_id);
+    } else {
+        $post_id = $tmp_hash->{1};
+    }
+
+    my $api_url = Config::get_value_for("api_url") . "/posts/" . $post_id;
+
+    my $query_string = "/?author=$author_name&session_id=$session_id&rev=$rev&text=markup";
+
+    $api_url .= $query_string;
+
+    my $rest = REST::Client->new();
+    $rest->GET($api_url);
+
+    my $rc = $rest->responseCode();
+
+    my $json = decode_json $rest->responseContent();
+
+    if ( $rc >= 200 and $rc < 300 ) {
+        my $t = Page->new("splitscreenform");
+        $t->set_template_variable("action", "updateblog");
+        $t->set_template_variable("api_url", Config::get_value_for("api_url"));
+        $t->set_template_variable("markup",     decode_entities($json->{markup}, '<>&'));
+        $t->set_template_variable("post_id",         $post_id);
+        $t->display_page_min("Editing - Split Screen " . $json->{title});
+    } elsif ( $rc >= 400 and $rc < 500 ) {
+            Page->report_error("user", "$json->{user_message}", $json->{system_message});
+    } else  {
+        Page->report_error("user", "Unable to complete request. Invalid response code returned from API.", "$json->{user_message} $json->{system_message}");
+    }
+}
+
 
 sub update_post {
 

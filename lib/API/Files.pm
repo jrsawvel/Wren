@@ -177,7 +177,7 @@ sub read_markup_file {
     if ( -e $markup_filename ) {
         open(my $fh, "<", $markup_filename ) or Error::report_error("400", "Could not open $post_id.txt for read.", $!);
         while ( <$fh> ) {
-            chomp;
+            # chomp;
             $markup .= $_; 
         }
         close($fh) or Error::report_error("400", "Could not close $post_id.txt after reading.", $!);

@@ -27,19 +27,19 @@
 
 <!-- markup -->
 
-Editing: <strong><a href="/<!-- tmpl_var name="html_file" -->"><!-- tmpl_var name="html_file" --></a>
 <center>
+<small>Editing: <strong><a href="/<!-- tmpl_var name="html_file" -->"><!-- tmpl_var name="html_file" --></a></small>
 <form id="articleform" method="post" action="/wren/updatepost">
 <input type="hidden" name="post_location" value="text_area"> 
 <input type="hidden" name="original_slug" value="<!-- tmpl_var name="original_slug" -->"> 
 
 <p>
 <textarea id="textareaboxpost" name="markup" rows="15" cols="60"><!-- tmpl_var name="markup" --></textarea>
-</p>
-
-<p>
+<br />
 <input class="submitbutton" type="submit" name="sb" value="Preview">
- &nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp;
+ <span class="greylink"><a href="/wren/splitscreenedit/<!-- tmpl_var name="original_slug" -->"><small>editor</small></a></span>
+ &nbsp; &nbsp;
 <input class="submitbutton" type="submit" name="sb" value="Update">
 </p>
 

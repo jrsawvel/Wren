@@ -143,7 +143,7 @@ $(function() {
         if ( postid > 0 ) {
             rest_action = "PUT";
         }
- 
+
         if ( col_type === "singlecol" ) { 
             $('#col_left').set('$', '+col -singlecol');
             $('#tx_input').animate({$$fade: 0}, 500); // fade out
@@ -171,17 +171,18 @@ $(function() {
 
 // alert(apiurl);
 
-        var author_name  = getCookie('veeryauthor_name');
-        var session_id   = getCookie('veerysession_id');
+        var author_name  = getCookie('wrenauthor_name');
+        var session_id   = getCookie('wrensession_id');
+        var rev          = getCookie('wrenrev');
 
         var myRequest = {         // create a request object that can be serialized via JSON
             author:      author_name,
             session_id:  session_id,
+            rev:         rev,
             submit_type: 'Preview',
             form_type:   'ajax',
             markup:      markup,
             post_id:     postid,
-            rev:         postrev
         };
 
         var json_str = $.toJSON(myRequest);
@@ -246,7 +247,7 @@ $(function() {
 
         markup=escape(markup);
 
-        var sbtype = "Post";
+        var sbtype = "Create";
         var rest_action = "POST";
 
         if ( action === "updateblog" ) {
@@ -254,19 +255,19 @@ $(function() {
             rest_action = "PUT";
         }
 
-        var author_name  = getCookie('veeryauthor_name');
-        var session_id   = getCookie('veerysession_id');
+        var author_name  = getCookie('wrenauthor_name');
+        var session_id   = getCookie('wrensession_id');
+        var rev          = getCookie('wrenrev');
 
-        var clienturl = "http://veeryclientperl.soupmode.com/cacheit/" + postid + "/?author=" + author_name + "&session_id=" + session_id;
 
         var myRequest = {         // create a request object that can be serialized via JSON
             author:      author_name,
             session_id:  session_id,
+            rev:         rev,
             submit_type: sbtype,
             form_type:   'ajax',
             markup:      markup,
             post_id:     postid,
-            rev:         postrev
         };
 
         var json_str = $.toJSON(myRequest);
@@ -291,7 +292,6 @@ $(function() {
                   $('#splitscreenpostid').set('@value', obj['post_id']);
                   $('#splitscreenpostrev').set('@value', obj['rev']);
                   
-                  jQuery.get(clienturl);
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     var obj = $.parseJSON(xhr.responseText);

@@ -199,11 +199,11 @@ article {
     text-align: center;
 }
 
-.sitewide-footer a {
+.sitewide-footer, .greylink a {
     color: #666;
 }
 
-.sitewide-footer a:hover {
+.sitewide-footer, .greylink  a:hover {
     color: #000;
 }
 

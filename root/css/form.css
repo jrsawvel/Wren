@@ -5,7 +5,8 @@ textarea {
     color: #222;
     line-height: 1.7em;
     background: #f8f8ff;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
+    margin: 0px;
 }
 
 #textareaboxpost {
