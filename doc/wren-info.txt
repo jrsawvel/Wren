@@ -1,4 +1,0 @@
-
-nginx:
-
-ln s /etc/nginx/sites-available/configfile /etc/nginx/sites-enabled/configfile
