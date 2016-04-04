@@ -17,6 +17,7 @@ body {
     font-size: 125%;
     /* font-size: 1.3em;  */
     line-height: 165%;
+    margin: 0;
 }
 
 code {
@@ -246,7 +247,7 @@ article {
 /* 45em = 720px */
 @media only screen and (max-width: 45em) {
      article {
-         max-width: 98%;
+         max-width: 95%;
      }
 
      body {

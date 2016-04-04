@@ -182,7 +182,7 @@ $(function() {
             submit_type: 'Preview',
             form_type:   'ajax',
             markup:      markup,
-            post_id:     postid,
+            original_slug:     postid,
         };
 
         var json_str = $.toJSON(myRequest);
@@ -267,7 +267,7 @@ $(function() {
             submit_type: sbtype,
             form_type:   'ajax',
             markup:      markup,
-            post_id:     postid,
+            original_slug:     postid,
         };
 
         var json_str = $.toJSON(myRequest);

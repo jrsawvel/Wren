@@ -31,6 +31,8 @@ sub show_post_to_edit {
         $post_id = $tmp_hash->{1};
     }
 
+    my $original_slug = $tmp_hash->{$hash_length-1};
+
     my $api_url = Config::get_value_for("api_url") . "/posts/" . $post_id;
 
     my $query_string = "/?author=$author_name&session_id=$session_id&rev=$rev&text=markup";
@@ -46,8 +48,8 @@ sub show_post_to_edit {
 
     if ( $rc >= 200 and $rc < 300 ) {
         my $t = Page->new("updatepostform");
-        $t->set_template_variable("html_file", "$post_id.html");
-        $t->set_template_variable("original_slug", $post_id);
+        $t->set_template_variable("html_file", "$original_slug.html");
+        $t->set_template_variable("original_slug", $original_slug);
         # $t->set_template_variable("markup", $json->{markup});
         $t->set_template_variable("markup",     decode_entities($json->{markup}, '<>&'));
         $t->display_page("Updating Post $json->{title}");
@@ -82,6 +84,8 @@ sub splitscreen_edit {
         $post_id = $tmp_hash->{1};
     }
 
+    my $original_slug = $tmp_hash->{$hash_length-1};
+
     my $api_url = Config::get_value_for("api_url") . "/posts/" . $post_id;
 
     my $query_string = "/?author=$author_name&session_id=$session_id&rev=$rev&text=markup";
@@ -100,7 +104,8 @@ sub splitscreen_edit {
         $t->set_template_variable("action", "updateblog");
         $t->set_template_variable("api_url", Config::get_value_for("api_url"));
         $t->set_template_variable("markup",     decode_entities($json->{markup}, '<>&'));
-        $t->set_template_variable("post_id",         $post_id);
+#        $t->set_template_variable("post_id",         $post_id);
+        $t->set_template_variable("post_id",         $original_slug);
         $t->display_page_min("Editing - Split Screen " . $json->{title});
     } elsif ( $rc >= 400 and $rc < 500 ) {
             Page->report_error("user", "$json->{user_message}", $json->{system_message});
@@ -130,11 +135,12 @@ sub update_post {
     my $json_input;
 
     my $hash = {
-        'author'      => $author_name,
-        'session_id'  => $session_id,
-        'rev'         => $rev,
-        'submit_type' => $submit_type,
-        'markup'      => $markup,
+        'author'         => $author_name,
+        'session_id'     => $session_id,
+        'rev'            => $rev,
+        'submit_type'    => $submit_type,
+        'markup'         => $markup,
+        'original_slug'  => $original_slug,
     };
 
     my $json_input = encode_json $hash;

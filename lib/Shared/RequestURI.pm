@@ -13,8 +13,13 @@ sub get_cgi_params_from_path_info {
     my @values = ();
     if ( $path_info ) {
         $path_info =~ s/\.html//g; 
-        $path_info =~ s/\/api\/v1//g;
-        $path_info =~ s/\/wren//g;
+
+        $path_info =~ s/\/api\/v1//g;   # api code
+
+        if ( $path_info =~ m/\/wren\// ) {
+            $path_info =~ s/\/wren\///;       # client-side code 
+            $path_info = "/" . $path_info; 
+        }
 
         if ( $path_info =~ m/\/\?(.*)$/ ) {
             $path_info =~ s/\/\?$1//;

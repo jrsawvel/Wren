@@ -22,6 +22,8 @@ sub update_post {
     my $session_id             = $hash_ref->{'session_id'};
     my $rev                    = $hash_ref->{'rev'};
 
+    my $original_slug = $hash_ref->{original_slug};
+
     if ( !Auth::is_valid_login($logged_in_author_name, $session_id, $rev) ) { 
         Error::report_error("400", "Unable to peform action.", "You are not logged in.");
     }
@@ -70,6 +72,7 @@ sub update_post {
         $hash_ref->{html}                   = $html;
         $hash_ref->{title}                  = $title;
         $hash_ref->{slug}                   = $slug;
+        $hash_ref->{original_slug}          = $original_slug;
         $hash_ref->{post_type}              = $post_type;
         $hash_ref->{'created_date'}         = $dt_hash_ref->{date};
         $hash_ref->{'created_time'}         = $dt_hash_ref->{time};
@@ -87,23 +90,35 @@ sub update_post {
             }
         }
 
-        if ( $markup =~ m|<!--[\s]*slug[\s]*:[\s]*(.+?)-->|mi ) {
+        if ( $markup =~ m|^<!--[\s]*slug[\s]*:[\s]*(.+?)-->|mi ) {
             $hash_ref->{slug}      = Utils::trim_spaces($1);
         }
 
-    if ( $markup =~ m|<!--[\s]*dir[\s]*:[\s]*(.+)-->|mi ) {
-        $hash_ref->{dir}      = Utils::trim_spaces($1);
-        if ( $hash_ref->{dir} !~ m|^[\w]| ) {  
-            Error::report_error("400", "Invalid directory: $hash_ref->{dir}", " - Directory structure must start with alpha-numeric.");
-        } 
-        chop($hash_ref->{dir}) if $hash_ref->{dir} =~ m|[/]$|;  # remove ending forward slash if it exists
-    }
-
-    if ( $submit_type eq "Update" ) {
-        if ( !Files::output("update", $hash_ref, $markup) ) {
-            Error::report_error("400", "Unable to update files.", "Unknown error.");
+        if ( $markup =~ m|^<!--[\s]*template[\s]*:[\s]*(.+)-->|mi ) {
+            $hash_ref->{template}      = Utils::trim_spaces($1);
         }
-    } 
+
+        if ( $markup =~ m|^<!--[\s]*imageheader[\s]*:[\s]*(.+)-->|mi ) {
+            $hash_ref->{imageheader}      = Utils::trim_spaces($1);
+        }
+
+        if ( $markup =~ m|^<!--[\s]*description[\s]*:[\s]*(.+)-->|mi ) {
+            $hash_ref->{description}      = Utils::trim_spaces($1);
+        }
+
+        if ( $markup =~ m|^<!--[\s]*dir[\s]*:[\s]*(.+)-->|mi ) {
+            $hash_ref->{dir}      = Utils::trim_spaces($1);
+            if ( $hash_ref->{dir} !~ m|^[\w]| ) {  
+                Error::report_error("400", "Invalid directory: $hash_ref->{dir}", " - Directory structure must start with alpha-numeric.");
+            } 
+            chop($hash_ref->{dir}) if $hash_ref->{dir} =~ m|[/]$|;  # remove ending forward slash if it exists
+        }
+
+        if ( $submit_type eq "Update" ) {
+            if ( !Files::output("update", $hash_ref, $markup) ) {
+                Error::report_error("400", "Unable to update files.", "Unknown error.");
+            }
+        } 
 
         $hash_ref->{status}      = 200;
         $hash_ref->{description} = "OK";

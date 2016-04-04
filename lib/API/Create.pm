@@ -88,11 +88,23 @@ sub create_post {
     }
 
 #    if ( $markup =~ m|<!--[\s]*slug[\s]*:[\s]*(.+?)-->|mi ) {
-    if ( $markup =~ m|<!--[\s]*slug[\s]*:[\s]*(.+)-->|mi ) {
+    if ( $markup =~ m|^<!--[\s]*slug[\s]*:[\s]*(.+)-->|mi ) {
         $hash_ref->{slug}      = Utils::trim_spaces($1);
     }
 
-    if ( $markup =~ m|<!--[\s]*dir[\s]*:[\s]*(.+)-->|mi ) {
+    if ( $markup =~ m|^<!--[\s]*template[\s]*:[\s]*(.+)-->|mi ) {
+        $hash_ref->{template}      = Utils::trim_spaces($1);
+    }
+
+    if ( $markup =~ m|^<!--[\s]*imageheader[\s]*:[\s]*(.+)-->|mi ) {
+        $hash_ref->{imageheader}      = Utils::trim_spaces($1);
+    }
+
+    if ( $markup =~ m|^<!--[\s]*description[\s]*:[\s]*(.+)-->|mi ) {
+        $hash_ref->{description}      = Utils::trim_spaces($1);
+    }
+
+    if ( $markup =~ m|^<!--[\s]*dir[\s]*:[\s]*(.+)-->|mi ) {
         $hash_ref->{dir}      = Utils::trim_spaces($1);
         if ( $hash_ref->{dir} !~ m|^[\w]| ) {  
             Error::report_error("400", "Invalid directory: $hash_ref->{dir}", " - Directory structure must start with alpha-numeric.");

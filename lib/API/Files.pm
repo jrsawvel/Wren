@@ -12,13 +12,27 @@ sub output {
     my $hash_ref    = shift;
     my $markup      = shift;
 
-    my $t = Page->new("articlehtml");
+    my $t;
+
+    if ( exists($hash_ref->{template}) ) {
+        $t = Page->new($hash_ref->{template});
+    } else {
+        $t = Page->new("articlehtml");
+    }
        
     my $html = $hash_ref->{html};
 
     $t->set_template_variable("html", $html);
     $t->set_template_variable("title", $hash_ref->{title});
   
+    if ( exists($hash_ref->{imageheader}) ) {
+        $t->set_template_variable("imageheader", $hash_ref->{imageheader});
+    }
+
+    if ( exists($hash_ref->{description}) ) {
+        $t->set_template_variable("description", $hash_ref->{description});
+    }
+
     if ( $hash_ref->{toc} ) {
         $t->set_template_variable("usingtoc", "1");
         $t->set_template_loop_data("toc_loop", $hash_ref->{toc_loop});
@@ -27,6 +41,10 @@ sub output {
     }
 
     my $html_output  = $t->create_html_page($hash_ref->{title});
+
+    if ( $submit_type eq "update" ) {
+        $hash_ref->{slug} = $hash_ref->{original_slug};
+    } 
 
     _save_markup_to_storage_directory($submit_type, $markup, $hash_ref);
 
