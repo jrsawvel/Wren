@@ -15,7 +15,7 @@ sub get_power_command_on_off_setting_for {
     my $binary_value = $default_value;   # default value should come from config file
     
 # if ( $str =~ m|^<!--[\s]*$command[\s]*:[\s]*(.*?)-->$|mi ) {
-    if ( $str =~ m|<!--[\s]*$command[\s]*:[\s]*(.*?)-->|mi ) {
+    if ( $str =~ m|^<!--[\s]*$command[\s]*:[\s]*(.*?)-->|mi ) {
         my $string_value = Utils::trim_spaces(lc($1));
         if ( $string_value eq "no" ) {
             $binary_value = 0;

@@ -48,8 +48,9 @@ sub show_post_to_edit {
 
     if ( $rc >= 200 and $rc < 300 ) {
         my $t = Page->new("updatepostform");
-        $t->set_template_variable("html_file", "$original_slug.html");
+        $t->set_template_variable("html_file", "$post_id.html");
         $t->set_template_variable("original_slug", $original_slug);
+        $t->set_template_variable("post_id", $post_id);
         # $t->set_template_variable("markup", $json->{markup});
         $t->set_template_variable("markup",     decode_entities($json->{markup}, '<>&'));
         $t->display_page("Updating Post $json->{title}");
@@ -169,8 +170,9 @@ sub update_post {
        
             my $html = $json->{html};
             $t->set_template_variable("html", $html);
-            $t->set_template_variable("html_file", "$original_slug.html");
+            $t->set_template_variable("html_file", "$json->{post_id}.html");
             $t->set_template_variable("original_slug", $original_slug);
+            $t->set_template_variable("post_id", $json->{post_id});
             $t->set_template_variable("title", $json->{title});
   
             if ( $json->{toc} ) {

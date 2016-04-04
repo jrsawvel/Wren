@@ -73,6 +73,7 @@ sub update_post {
         $hash_ref->{title}                  = $title;
         $hash_ref->{slug}                   = $slug;
         $hash_ref->{original_slug}          = $original_slug;
+        $hash_ref->{post_id}                = $original_slug;
         $hash_ref->{post_type}              = $post_type;
         $hash_ref->{'created_date'}         = $dt_hash_ref->{date};
         $hash_ref->{'created_time'}         = $dt_hash_ref->{time};
@@ -112,6 +113,7 @@ sub update_post {
                 Error::report_error("400", "Invalid directory: $hash_ref->{dir}", " - Directory structure must start with alpha-numeric.");
             } 
             chop($hash_ref->{dir}) if $hash_ref->{dir} =~ m|[/]$|;  # remove ending forward slash if it exists
+            $hash_ref->{post_id} = $hash_ref->{dir} . "/" . $hash_ref->{post_id};
         }
 
         if ( $submit_type eq "Update" ) {
