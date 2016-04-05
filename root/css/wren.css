@@ -109,8 +109,12 @@ h3, h4 {
     padding-top: 30px;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
     text-align:center;
+}
+
+h4 {
+    text-align: left;
 }
 
 h5 {
@@ -187,12 +191,14 @@ article {
     text-transform: lowercase;
 }
 
-.home-link a {
+.home-link a, .home-link a:visited {
     color: #666;
+    text-decoration: none;
 }
 
 .home-link a:hover {
     color: #000;
+    text-decoration: underline;
 }
 
 .sitewide-footer {
@@ -200,12 +206,44 @@ article {
     text-align: center;
 }
 
-.sitewide-footer, .greylink a {
+.sitewide-footer a, .sitewide-footer a:visited {
     color: #666;
+    text-decoration: none;
 }
 
-.sitewide-footer, .greylink  a:hover {
+.sitewide-footer  a:hover {
     color: #000;
+    text-decoration: underline;
+}
+
+.blacklinks a {
+    color: #222;
+    text-decoration: none;
+}
+    
+.blacklinks a:visited {
+    color: #222;
+    text-decoration: none;
+}
+    
+.blacklinks a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.greylinks a {
+    color: #666;
+    text-decoration: none;
+}
+    
+.greylinks a:visited {
+    color: #666;
+    text-decoration: none;
+}
+    
+.greylinks a:hover {
+    color: #000;
+    text-decoration: underline;
 }
 
 #toc {
