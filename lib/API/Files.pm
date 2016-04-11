@@ -267,9 +267,11 @@ sub _create_rss_file {
     my $hash_ref = shift;
     my $stream = shift; # referecne to an array of hashes
 
+    my $stream_len = @$stream;
+
     my $max_entries = Config::get_value_for("max_entries");
     my @rss_stream = ();
-    for ( my $i=0; $i<$max_entries; $i++ ) {
+    for ( my $i=0; $i<$max_entries and $i<$stream_len; $i++ ) {
         push(@rss_stream, $stream->[$i]);
     } 
 
@@ -329,9 +331,11 @@ sub _create_microformatted_file {
     my $hash_ref = shift;
     my $stream = shift;
 
+    my $stream_len = @$stream;
+
     my $max_entries = Config::get_value_for("max_entries");
     my @mft_stream = ();
-    for ( my $i=0; $i<$max_entries; $i++ ) {
+    for ( my $i=0; $i<$max_entries and $i<$stream_len; $i++ ) {
         push(@mft_stream, $stream->[$i]);
     } 
 

@@ -1,6 +1,28 @@
-# Wren 
+# Wren README
 
-Wren is a web-based, static site, blog tool. It requires the user to create most of the functions that would be automatically created in "normal" web publishing apps.
+### Brief Description
+
+* Built with Perl and HTML::Template
+* API-based, using REST and JSON.
+* No database.
+* Single-user mode only.
+* Logging in only requires an email address. A password is never used.
+* Markup support: Markdown, Multimarkdown,  and HTML. 
+* Additional custom commands exist to control formatting and functionality of a post. 
+* Simple and enhanced writing areas.
+* Content headers can be used to create a table of contents for the page. 
+* RSS feed for posts sorted by created date.
+* Responsive web design.
+* Client-side JavaScript is used only with the editor.
+* Reading time and word count are calculated for each post.
+* The author has a lot of freedom.
+
+
+### Longer Description
+
+Wren is a web-based, static site, blog tool that does not use a database. 
+
+Wren requires the user to create most of the functions that would be automatically created in most "normal" web publishing apps.
 
 For example, the homepage is not automatically generated. The index.html files that are located in the root directory and in sub-directories get created and updated like a regular article post.
 
@@ -26,15 +48,9 @@ I'm also using Wren to store updates about my Dad's cancer treatment at:
 
 * <http://dad.soupmode.com>
 
+I use my Grebe publishing app to manage our home brewing blog at <http://birdbrainsbrewing.com>. I'm testing Wren by migrating content from that site into <http://beer.soupmode.com>. 
+
 For search, I will rely on using Google and/or DuckDuckGo.
-
-I need to add support for writing with the JavaScript editor that I have enabled with my other web publishing apps.
-
-To access the markup text version of a post, replace `.html` at the end of the URL with `.txt`.
-
-Wren maintains a list of all links to posts in a file called `links.json`. Wren uses this file to create `rss.xml`, `sitemap.xml`, and `mft.html`. 
-
-`mft.html` lists the most recent posts in an HTML file that uses [microformats](http://microformats.org/wiki/microformats2). Some [Indieweb users](https://indiewebcamp.com/) prefer to syndicate their content by marking up their HTML files with microformats. Parsers would read a user's homepage to create a feed to be read by someone else, instead of accessing the author's RSS feed.
 
 When logged into Wren through a web browser, the author enters the commands in the URL after the site's domain name.
 
@@ -45,32 +61,7 @@ When logged into Wren through a web browser, the author enters the commands in t
 * `/wren/logout`
 
 
-In the Wren YAML configuration file, the following directories need to be specified. The first two should be created outside of document root.
+Special formatting commands can be used within HMTL comments in the markup.
 
-*  `markup_storage : /home/wren/markup` - for easy download, backup
-*  `session_id_storage : /home/wren/sessionids`
-*  `versions_storage : <html doc root>/versions`
-
-
-Special Wren commands are listed within HMTL comments in the markup.
-
-* `<!-- toc : yes -->` - create a table of contents. default is NO.
-* `<!-- url_to_link : yes -->` - auto-link raw URLs. default is NO. 
-* `<!-- newline_to_br : no -->` - preserve hard line breaks in html. default is YES. 
-* `<!-- slug : slugname -->` - example for the homepage = `slug:index`
-* `<!-- dir:directory-location -->` - example = `dir:2006/03/24`
-* `<!-- template : customarticle -->`
-* `<!-- imageheader : http://url-to-image -->`
-* `<!-- description : sub-title text to display over image header -->`
-
-For my other web publishing apps, such as Junco, Grebe, Scaup, and Veery, I created many custom formatting commands. But at the moment, Wren only uses two.
-
-* `br.` - to force a break or a blank line. 
-* `fence. fence..` - to be used around a large code block when indenting each line with four spaces is tedious.
-
-The Wren Markdown is slighly flavored.
-
-* Newlines or hard line breaks are preserved and get converted to the HTML BR tag. This default behavior can be overridden per above.
-* If desired, raw URLs can be converted to clickable links with the above command.
-* Two minus signs on both sides of text will surround the text with the HTML SMALL tag.
+The Wren Markdown is lightly flavored.
 
