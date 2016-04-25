@@ -19,8 +19,6 @@ sub searches {
     # remove unnacceptable chars from the search string
     $search_text =~s/[^A-Za-z0-9 _\-\#\.]//gs; 
 
-    # my $base_url = "http://wren.soupmode.com/";
-
     #clean up environment
     delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
     $ENV{'PATH'} = '/bin:/usr/bin';
