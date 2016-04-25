@@ -50,7 +50,7 @@ I'm also using Wren to store updates about my Dad's cancer treatment at:
 
 I use my Grebe publishing app to manage our home brewing blog at <http://birdbrainsbrewing.com>. I'm testing Wren by migrating content from that site into <http://beer.soupmode.com>. 
 
-For search, I will rely on using Google and/or DuckDuckGo.
+For search, I will use Google and/or DuckDuckGo, but Wren also supports its own search mechanism. At the moment, the search forms are manually setup by creating an HTML page like any other article. I may make this its own template.
 
 When logged into Wren through a web browser, the author enters the commands in the URL after the site's domain name.
 

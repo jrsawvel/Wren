@@ -322,3 +322,39 @@ If successful, the returned JSON would be:
 
 The `post_type` is a holdover from another app. Currently, all Wren posts are considered to be "articles", which means the `post_type` is unnecessary. My other web publishing apps differentiated between "articles" and "notes". The key difference being that "notes" did not have a title.
 
+
+
+### SEARCHES
+
+This uses a GET request to `/searches/[string]`
+
+Curl example:
+
+    curl http://website/api/v1/searches/user+guide
+
+Returned JSON:
+
+    {
+      "status":200,
+      "description":"OK",
+      "search_text":"user guide",
+      "total_hits":3,
+      "posts":[
+        {
+          "url":"http://website/tag-wren.html",
+          "uri":"tag-wren"
+        },
+        {
+          "url":"http://website/index.html",
+          "uri":"index"
+        },
+        {
+          "url":"http://website/wren-user-guide.html",
+          "uri":"wren-user-guide"
+        }
+      ]
+    }
+
+
+
+
