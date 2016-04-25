@@ -11,6 +11,7 @@ my %cgi_params = RequestURI::get_cgi_params_from_path_info();
 my $dispatch_for = {
     posts              =>   sub { return \&do_sub(       "Posts",       "posts"                    ) },
     users              =>   sub { return \&do_sub(       "Users",       "users"                    ) },
+    searches           =>   sub { return \&do_sub(       "Searches",    "searches"                 ) },
     showerror          =>   sub { return \&do_sub(       "Error",       "error"                    ) },
 };
 

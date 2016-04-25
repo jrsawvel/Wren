@@ -1,5 +1,6 @@
 package Users;
 
+use diagnostics;
 use strict;
 use warnings;
 

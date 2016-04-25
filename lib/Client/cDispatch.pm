@@ -21,6 +21,7 @@ my $dispatch_for = {
     nopwdlogin         =>   sub { return \&do_sub(       "User",           "no_password_login"        ) },
     splitscreen        =>   sub { return \&do_sub(       "CreatePost",     "show_splitscreen_form"    ) },
     splitscreenedit    =>   sub { return \&do_sub(       "UpdatePost",     "splitscreen_edit"         ) },
+    search             =>   sub { return \&do_sub(       "Search",         "search"                   ) },
 };
 
 sub execute {
