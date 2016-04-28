@@ -22,7 +22,14 @@ sub create_post {
     my $session_id             = $hash_ref->{'session_id'};
     my $rev                    = $hash_ref->{'rev'};
 
-    if ( !Auth::is_valid_login($logged_in_author_name, $session_id, $rev) ) { 
+    my $preview_only_key       = $hash_ref->{'preview_only_key'};
+    my $preview_only = 0;
+
+    if ( $preview_only_key eq Config::get_value_for("preview_only_key") ) {
+        $preview_only = 1;
+    }
+
+    if ( !Auth::is_valid_login($logged_in_author_name, $session_id, $rev) and !$preview_only ) { 
         Error::report_error("400", "Unable to peform action.", "You are not logged in.");
     }
 
