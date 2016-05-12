@@ -90,7 +90,8 @@ sub create_heading_list {
     my @headers = ();
     my $header_list = "";
 
-    if ( @headers = $str =~ m{\s+<h([1-6]).*?>(.*?)</h[1-6]>}igs ) {
+#    if ( @headers = $str =~ m{\s+<h([1-6]).*?>(.*?)</h[1-6]>}igs ) {
+    if ( @headers = $str =~ m{<h([1-6]).*?>(.*?)</h[1-6]>}igs ) {
         my $len = @headers;
         for (my $i=0; $i<$len; $i+=2) { 
             my $heading_text = Utils::remove_html($headers[$i+1]); 
