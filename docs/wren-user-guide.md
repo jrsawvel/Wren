@@ -68,6 +68,16 @@ Special Wren commands are listed within HMTL comments in the markup.
 * `<!-- imageheader : http://url-to-image -->`
 * `<!-- description : sub-title text to display over image header -->`
 
+CSS can be included, which can override the default CSS or to add new display options.
+
+To use custom CSS in a post, do the following:
+
+    <!-- css_start 
+    body {background: yellow;}
+    css_end --> 
+
+The starting and ending comment lines must occur at the beginning of a line.
+
 
 
 ### Files
@@ -114,6 +124,5 @@ If Google has indexed the site, then include the following HTML to get Google se
       <input type=hidden name=sitesearch value="http://yoursite.com">
      </form>
     </p>
-
 
 

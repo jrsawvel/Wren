@@ -182,6 +182,11 @@ sub update_post {
                 $t->set_template_variable("usingtoc", "0");
             }
 
+            if ( exists($json->{custom_css}) ) {
+                $t->set_template_variable("using_custom_css", "1");
+                $t->set_template_variable("custom_css", $json->{custom_css});
+            } 
+
             $t->display_page("Previewing new post");
             exit;
         } elsif ( $submit_type eq "Update" ) {

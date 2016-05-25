@@ -104,11 +104,11 @@ If an attempt was made to activate a login session with the same link, the retur
 
 This uses a GET request:
 
-    /users/logout/?author=[author_name]&amp;session_id=[session_id]&amp;rev=[rev]
+    /users/logout/?author=[author_name]&session_id=[session_id]&rev=[rev]
 
 Curl example:
 
-    curl http://website/api/v1/users/logout/?author=NickAdams\&amp;session_id=kPavt87rPj49cvGZY8YHnQ\&amp;rev=hHggOD2q
+    curl http://website/api/v1/users/logout/?author=NickAdams\&session_id=kPavt87rPj49cvGZY8YHnQ\&rev=hHggOD2q
 
 
 Returned JSON if successful:
@@ -165,6 +165,7 @@ Curl example for previewing a post:
       "html":"<p>Hello World</p>\n\n"
     }
 
+If custom CSS was used in the markup, then the name-value `custom_css` along with the actual CSS is included in the returned JSON.
 
 Create the new post with an incorrect `post_type`:
 
@@ -319,6 +320,7 @@ If successful, the returned JSON would be:
       "html":"<p>Hello World</p>\n\n<p>line added in update</p>\n\n<!-- dir : 2016/04/08 -->\n\n",
 }
 
+If custom CSS was used in the markup, then the name-value `custom_css` along with the actual CSS is included in the returned JSON.
 
 The `post_type` is a holdover from another app. Currently, all Wren posts are considered to be "articles", which means the `post_type` is unnecessary. My other web publishing apps differentiated between "articles" and "notes". The key difference being that "notes" did not have a title.
 
@@ -354,7 +356,4 @@ Returned JSON:
         }
       ]
     }
-
-
-
 

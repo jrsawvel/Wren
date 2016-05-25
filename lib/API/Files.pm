@@ -40,6 +40,11 @@ sub output {
         $t->set_template_variable("usingtoc", "0");
     }
 
+    if ( exists($hash_ref->{custom_css}) ) {
+        $t->set_template_variable("using_custom_css", "1");
+        $t->set_template_variable("custom_css", $hash_ref->{custom_css});
+    } 
+
     my $html_output  = $t->create_html_page($hash_ref->{title});
 
     if ( $submit_type eq "update" ) {

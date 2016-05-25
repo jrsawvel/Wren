@@ -108,5 +108,31 @@ sub create_heading_list {
     return $str; 
 }
 
+sub extract_css {
+    my $str = shift;
+
+# <!-- css_start
+#
+# css_end -->
+
+    my $return_data; 
+
+#    $str =~ s/^css[.][.]/<\/css>/igm;
+#    $str =~ s/^css[.]/<css>/igm;
+
+    $str =~ s/^css_end -->/<\/css>/igm;
+    $str =~ s/^<!-- css_start/<css>/igm;
+
+    if ( $str =~ m/^(.*?)<css>(.*?)<\/css>(.*?)$/is ) {
+        $return_data->{markup} = $1 . $3;
+        $return_data->{custom_css}    = $2;
+    } else {
+        $return_data->{markup} = $str;
+        $return_data->{custom_css} = "";
+    }
+
+    return $return_data;
+}
+
 1;
 
