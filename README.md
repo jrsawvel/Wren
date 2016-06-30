@@ -1,5 +1,6 @@
 # Wren README
 
+
 ### Brief Description
 
 * Built with Perl and HTML::Template
@@ -32,7 +33,7 @@ It's a slower way to produce content, which may mean staying more focused and wr
 
 Wren posts can be created and updated through a web browser on a desktop/laptop or on a mobile device. 
 
-Wren has an API, which can be accessed with command prompt utilities or [curl](https://curl.haxx.se/). I'll need to finish creating the example command prompt utility, and I need to enable the API to support "Preview" when access has no authentication. Preview will return the formatted post, which could be saved on a local hard drive.
+Wren has an API, which can be accessed with command prompt utilities or [curl](https://curl.haxx.se/). The Wren API doc describes how to use it. I'll need to finish creating the example command prompt utility, and I need to enable the API to support "Preview" when access has no authentication. Preview will return the formatted post, which could be saved on a local hard drive. 
 
 When logging into a Wren site, it uses a no-password login mechanism. The author submits an email address, and the login activation link is emailed to the address listed within the Wren YAML configuration file. The app uses [MailGun](http://www.mailgun.com/) to send these emails.
 
@@ -40,17 +41,18 @@ Text can be formatted using [Markdown](https://daringfireball.net/projects/markd
 
 Wren does not support Textile. That's a deviation from my other web publishing apps, especially since I have used Textile for writing since 2005. But within one of my Grebe-based web sites, I've tried to use Markdown more, and I've tried to minimize the formatting that I do. Keep it simple.
 
-Here's a test Wren site that uses posts that I created elsewhere in the past:
+These are my test Wren sites that use a combination of new posts and posts that I created elsewhere in the past:
 
 * <http://wren.soupmode.com>
+* <http://blog.soupmode.com>
 
 I'm also using Wren to store updates about my Dad's cancer treatment at:
 
-* <http://dad.soupmode.com>
+* <http://dad.soupmode.com> - (I need to get caught up with the updates. He's still managing "okay" as of June 30, 2016. We plan to do some fishing in July.)
 
-I use my Grebe publishing app to manage our home brewing blog at <http://birdbrainsbrewing.com>. I'm testing Wren by migrating content from that site into <http://beer.soupmode.com>. 
+In 2014, I used my Grebe publishing app to manage our home beer brewing blog at <http://birdbrainsbrewing.com>. But in the spring of 2016, I switched to using Wren. Much of the content had to be converted from Textile to Markdown.
 
-For search, I will use Google and/or DuckDuckGo, but Wren also supports its own search mechanism. At the moment, the search forms are manually setup by creating an HTML page like any other article. I may make this its own template.
+For search, Google and/or DuckDuckGo can be used, but I rely mainly on Wren's simple, built-in search mechanism. At the moment, the search forms are manually setup by creating an HTML page like any other article. The Wren User Guide doc contains the HTML code that can be used for a search page. I should  make this its own template.
 
 When logged into Wren through a web browser, the author enters the commands in the URL after the site's domain name.
 
@@ -61,7 +63,7 @@ When logged into Wren through a web browser, the author enters the commands in t
 * `/wren/logout`
 
 
-Special formatting commands can be used within HMTL comments in the markup.
+Special formatting commands can be used within HMTL comments in the markup. The info is contained within the User Guide.
 
 The Wren Markdown is lightly flavored.
 
