@@ -1,6 +1,5 @@
 # Wren README
 
-
 ### Brief Description
 
 * Built with Perl and HTML::Template
@@ -45,6 +44,9 @@ These are my test Wren sites that use a combination of new posts and posts that 
 
 * <http://wren.soupmode.com>
 * <http://blog.soupmode.com>
+* <http://zwdqwr2p2xwkpbyv.onion>
+
+The .onion site is running on my Linux computer inside our home, provided that the computer is powered on. I installed the Tor server. The localhost site is powered by Nginx and Wren, which creates the HTML pages. Then I copy the HTML content to the location of the .onion site, which uses thttpd to serve the pages. I did this for testing.
 
 I'm also using Wren to store updates about my Dad's cancer treatment at:
 
