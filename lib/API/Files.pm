@@ -6,6 +6,7 @@ use diagnostics;
 
 use Time::Local;
 use File::Path qw(make_path remove_tree);
+use JSON::PP;
 
 sub output {
     my $submit_type = shift;
@@ -229,7 +230,7 @@ sub _update_json_file {
         Error::report_error("400", "[2] Could not read links JSON file.", "File not found.");
     }
 
-    my $perl_hash = JSON::decode_json $json_text;
+    my $perl_hash = decode_json $json_text;
     my $stream    = $perl_hash->{posts};
 
     my $tmp_hash;

@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use diagnostics;
 
+use JSON::PP;
 
 sub logout {
 
@@ -33,12 +34,12 @@ sub logout {
 
     _update_session_info($rev, $hash_ref);
     
-    my %hash;
-    $hash{status}       = 200;
-    $hash{description}  = "OK";
-    $hash{logged_out}   = "true";
+    my $return_hash_ref;
+    $return_hash_ref->{status}       = 200;
+    $return_hash_ref->{description}  = "OK";
+    $return_hash_ref->{logged_out}   = "true";
 
-    my $json_return_str = JSON::encode_json \%hash;
+    my $json_return_str = encode_json $return_hash_ref;
 
     print CGI::header('application/json', '200 Accepted');
     print $json_return_str;

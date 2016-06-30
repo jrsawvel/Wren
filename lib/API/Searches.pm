@@ -5,6 +5,7 @@ use strict;
 use warnings;
 
 use URI::Escape;
+use JSON::PP;
 
 sub searches {
     my $tmp_hash = shift;
@@ -57,7 +58,7 @@ sub searches {
     $hash_ref->{total_hits}  = $total_hits;
     $hash_ref->{search_text} = $search_text;
     $hash_ref->{posts}       = \@posts;
-    my $json_str = JSON::encode_json $hash_ref;
+    my $json_str = encode_json $hash_ref;
 
     print CGI::header('application/json', '200 Accepted');
     print $json_str;

@@ -9,6 +9,7 @@ use API::PostTitle;
 use API::Format;
 use API::Files;
 use API::Auth;
+use JSON::PP;
 
 sub create_post {
 
@@ -16,7 +17,7 @@ sub create_post {
 
     my $json_text = $q->param('POSTDATA');
 
-    my $hash_ref = JSON::decode_json $json_text;
+    my $hash_ref = decode_json $json_text;
 
     my $logged_in_author_name  = $hash_ref->{'author'};
     my $session_id             = $hash_ref->{'session_id'};
@@ -25,7 +26,7 @@ sub create_post {
     my $preview_only_key       = $hash_ref->{'preview_only_key'};
     my $preview_only = 0;
 
-    if ( $preview_only_key eq Config::get_value_for("preview_only_key") ) {
+    if ( $preview_only_key and ($preview_only_key eq Config::get_value_for("preview_only_key")) ) {
         $preview_only = 1;
     }
 
@@ -46,7 +47,7 @@ sub create_post {
     } 
 
     my $formtype = $hash_ref->{'form_type'};
-    if ( $formtype eq "ajax" ) {
+    if ( $formtype and ($formtype eq "ajax") ) {
         $markup = URI::Escape::JavaScript::unescape($markup);
         $markup = HTML::Entities::encode($markup, '^\n\x20-\x25\x27-\x7e');
     } else {
@@ -68,7 +69,7 @@ my $html         = Format::markup_to_html($page_data->{markup}, $o->get_markup_t
     # my $html         = Format::markup_to_html($o->get_after_title_markup(), $o->get_markup_type(), $slug);
     $html            = Format::create_heading_list($html, $slug);
 
-    my $hash_ref;
+    undef $hash_ref;
 
     my $tmp_post = $html;
     $tmp_post           = Utils::remove_html($tmp_post);
@@ -130,7 +131,7 @@ $hash_ref->{'custom_css'}           = $page_data->{custom_css};
 
     $hash_ref->{status}      = 200;
     $hash_ref->{description} = "OK";
-    my $json_str = JSON::encode_json $hash_ref;
+    my $json_str = encode_json $hash_ref;
     print CGI::header('application/json', '200 Accepted');
     print $json_str;
     exit;

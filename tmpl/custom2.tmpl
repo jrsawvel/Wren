@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title><!-- tmpl_var name="pagetitle" --></title>
+    <meta charset="UTF-8" /> 
+    <meta name="generator"          content="<!-- tmpl_var name="app_name" -->" />
+    <meta name=viewport             content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico" />
+    <link rel="apple-touch-icon"    href="/images/cawr-60x60.png" />
+    <!--    <link rel="stylesheet" type="text/css" href="<!-- tmpl_var name="css_dir_url" -->/wren.css"  />  -->
+    <link rel="stylesheet" type="text/css" href="<!-- tmpl_var name="css_dir_url" -->/monospace.css"  /> 
+</head>
+<!-- tmpl_if using_custom_css -->
+<style>
+<!-- tmpl_var name="custom_css" -->
+</style>
+<!-- /tmpl_if -->
+
+<body>
+<article>
+<header>
+<!-- tmpl_if usingtoc -->
+<!-- /tmpl_if -->
+<h1><!-- tmpl_var name="title" --></h1> 
+</header>
+<!-- tmpl_var name="html" -->
+</article>
+
+<!--
+<!-- tmpl_var name="home_page" -->
+<!-- tmpl_var name="site_name" -->
+<!-- tmpl_var name="site_description" -->
+-->
+
+<br />
+
+</body>
+</html>

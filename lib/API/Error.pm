@@ -2,18 +2,20 @@ package Error;
 
 use strict;
 
+use JSON::PP;
+
 sub error {
     my ($tmp_hash) = @_;
-    my %hash;
-    $hash{status}         = 404;
-    $hash{description}    = "Not Found";
+    my $hash;
+    $hash->{status}         = 404;
+    $hash->{description}    = "Not Found";
     if ( $tmp_hash->{0} ) {
-        $hash{user_message}   = "Invalid function: $tmp_hash->{0}.";
+        $hash->{user_message}   = "Invalid function: $tmp_hash->{0}.";
     } else {
-        $hash{user_message}   = "Invalid function: no function given.";
+        $hash->{user_message}   = "Invalid function: no function given.";
     }
-    $hash{system_message} = "It's not supported.";
-    my $json_str = JSON::encode_json \%hash;
+    $hash->{system_message} = "It's not supported.";
+    my $json_str = encode_json $hash;
     print CGI::header('application/json', '404 Accepted');
     print $json_str;
     exit;
@@ -34,13 +36,15 @@ sub report_error {
     $http_status_codes{404} = "Not Found";
     $http_status_codes{500} = "Internal Server Error";
 
-    my %hash;
-    $hash{status}         = $status;
-    $hash{description}    = $http_status_codes{$status};
-    $hash{user_message}   = $user_message;
-    $hash{system_message} = $system_message;
+    my $hash;
+    $hash->{status}         = $status;
+    $hash->{description}    = $http_status_codes{$status};
+    $hash->{user_message}   = $user_message;
+    $hash->{system_message} = $system_message;
 
-    my $json_str = JSON::encode_json \%hash;
+    $hash->{nothing} = "nothing";
+
+    my $json_str = encode_json $hash;
     print CGI::header('application/json', "$status Accepted");
     print $json_str;
     exit;

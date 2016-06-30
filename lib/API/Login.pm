@@ -6,6 +6,7 @@ use diagnostics;
 
 use WWW::Mailgun;
 use API::DigestMD5;
+use JSON::PP;
 
 sub create_and_send_no_password_login_link {
 
@@ -13,7 +14,7 @@ sub create_and_send_no_password_login_link {
 
     my $json_text = $q->param('POSTDATA');
 
-    my $hash_ref_login = JSON::decode_json $json_text;
+    my $hash_ref_login = decode_json $json_text;
 
     my $user_submitted_email = Utils::trim_spaces($hash_ref_login->{'email'});
     my $client_url           = Utils::trim_spaces($hash_ref_login->{'url'});
@@ -44,7 +45,7 @@ sub create_and_send_no_password_login_link {
     $hash_ref->{user_message}    = "Creating New Login Link";
     $hash_ref->{system_message}  = "A new login link has been created and sent.";
 
-    my $json_str = JSON::encode_json $hash_ref;
+    my $json_str = encode_json $hash_ref;
 
     print CGI::header('application/json', '200 Accepted');
     print $json_str;
@@ -137,7 +138,7 @@ sub activate_no_password_login {
     $hash_ref->{status}      = 200;
     $hash_ref->{description} = "OK";
 
-    my $json_str = JSON::encode_json $hash_ref;
+    my $json_str = encode_json $hash_ref;
 
     print CGI::header('application/json', '200 Accepted');
     print $json_str;

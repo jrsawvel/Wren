@@ -27,6 +27,12 @@ my $dispatch_for = {
 sub execute {
     my $function = $cgi_params{0};
 
+if ( !defined($function) or !$function )  {
+    Page->report_error("user", "Client Invalid function: ", "It's not supported.");
+}
+
+
+
     $dispatch_for->{showerror}->() if !defined($function) or !$function;
 
     $dispatch_for->{showerror}->($function) unless exists $dispatch_for->{$function} ;

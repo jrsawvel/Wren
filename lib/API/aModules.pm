@@ -4,7 +4,6 @@ use warnings;
 use diagnostics;
 use CGI::Carp qw(fatalsToBrowser);
 use CGI qw(:standard);
-use JSON::Any       qw(XS JSON DWIW);
 use Shared::Config;
 use Shared::Utils;
 use Shared::Page;

@@ -28,6 +28,7 @@ sub _get_user_cookie_settings {
 }
 
 sub get_logged_in_flag {
+return 1;
     return $user_hash{loggedin};
 }
 
@@ -65,11 +66,11 @@ sub do_login {
            host => Config::get_value_for("api_url"),
     } );
 
-    my %hash;
-    $hash{email} = $user_submitted_email;
-    $hash{url}   = Config::get_value_for("home_page") . "/wren/nopwdlogin";
+    my $hash_ref;
+    $hash_ref->{email} = $user_submitted_email;
+    $hash_ref->{url}   = Config::get_value_for("home_page") . "/wren/nopwdlogin";
 
-    my $json_input = encode_json \%hash;
+    my $json_input = encode_json $hash_ref;
     $rest->POST( "/users/login" , $json_input , $headers );
 
     my $rc = $rest->responseCode();

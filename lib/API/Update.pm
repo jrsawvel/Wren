@@ -5,6 +5,7 @@ use warnings;
 
 use HTML::Entities;
 use URI::Escape::JavaScript qw(escape unescape);
+use JSON::PP;
 use API::PostTitle;
 use API::Format;
 use API::Files;
@@ -16,31 +17,31 @@ sub update_post {
 
     my $json_text = $q->param('PUTDATA');
 
-    my $hash_ref = JSON::decode_json $json_text;
+    my $input_hash_ref = decode_json $json_text;
 
-    my $logged_in_author_name  = $hash_ref->{'author'};
-    my $session_id             = $hash_ref->{'session_id'};
-    my $rev                    = $hash_ref->{'rev'};
+    my $logged_in_author_name  = $input_hash_ref->{'author'};
+    my $session_id             = $input_hash_ref->{'session_id'};
+    my $rev                    = $input_hash_ref->{'rev'};
 
-    my $original_slug = $hash_ref->{original_slug};
+    my $original_slug = $input_hash_ref->{original_slug};
 
     if ( !Auth::is_valid_login($logged_in_author_name, $session_id, $rev) ) { 
         Error::report_error("400", "Unable to peform action.", "You are not logged in.");
     }
 
-    my $submit_type     = $hash_ref->{'submit_type'}; # Preview or Post 
+    my $submit_type     = $input_hash_ref->{'submit_type'}; # Preview or Post 
     if ( $submit_type ne "Preview" and $submit_type ne "Update" ) {
         Error::report_error("400", "Unable to process post.", "Invalid submit type given.");
     } 
 
-    my $original_markup = $hash_ref->{'markup'};
+    my $original_markup = $input_hash_ref->{'markup'};
 
     my $markup = Utils::trim_spaces($original_markup);
     if ( !defined($markup) || length($markup) < 1 ) {
         Error::report_error("400", "Invalid post.", "You most enter text.");
     } 
 
-    my $formtype = $hash_ref->{'form_type'};
+    my $formtype = $input_hash_ref->{'form_type'};
     if ( $formtype eq "ajax" ) {
         $markup = URI::Escape::JavaScript::unescape($markup);
         $markup = HTML::Entities::encode($markup, '^\n\x20-\x25\x27-\x7e');
@@ -127,7 +128,7 @@ $hash_ref->{'custom_css'}           = $page_data->{custom_css};
 
         $hash_ref->{status}      = 200;
         $hash_ref->{description} = "OK";
-        my $json_str = JSON::encode_json $hash_ref;
+        my $json_str = encode_json $hash_ref;
         print CGI::header('application/json', '200 Accepted');
         print $json_str;
         exit;
