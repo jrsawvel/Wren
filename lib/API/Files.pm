@@ -46,12 +46,25 @@ sub output {
         $t->set_template_variable("custom_css", $hash_ref->{custom_css});
     } 
 
+    if ( exists($hash_ref->{dir}) ) {
+        $t->set_template_variable("url", Config::get_value_for("home_page") . "/" . $hash_ref->{dir} . "/" . $hash_ref->{slug} . ".html");
+    } else {
+        $t->set_template_variable("url", Config::get_value_for("home_page") . "/" . $hash_ref->{slug} . ".html");
+    }
+
+    $t->set_template_variable("post_type", $hash_ref->{post_type});
+
     my $html_output  = $t->create_html_page($hash_ref->{title});
 
     if ( $submit_type eq "update" ) {
         $hash_ref->{slug} = $hash_ref->{original_slug};
     } 
 
+    if ( $submit_type eq "rebuild" ) {
+        _save_html($html_output, $hash_ref);
+        return 1;
+    }
+        
     _save_markup_to_storage_directory($submit_type, $markup, $hash_ref);
 
     _save_markup_to_backup_directory($submit_type, $markup, $hash_ref) if $submit_type eq "update";

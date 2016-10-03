@@ -48,9 +48,7 @@ These are my test Wren sites that use a combination of new posts and posts that 
 
 The .onion site is running on my Linux computer inside our home, provided that the computer is powered on. I installed the Tor server. The localhost site is powered by Nginx and Wren, which creates the HTML pages. Then I copy the HTML content to the location of the .onion site, which uses thttpd to serve the pages. I did this for testing.
 
-I'm also using Wren to store updates about my Dad's cancer treatment at:
-
-* <http://dad.soupmode.com> - (I need to get caught up with the updates. He's still managing "okay" as of June 30, 2016. We plan to do some fishing in July.)
+In September 2016, I created a Wren-backed website to store some of my old web postings that I have posted elsewhere, mainly at ToledoTalk.com, since 2001. The site is located at <http://boghop.com>.
 
 In 2014, I used my Grebe publishing app to manage our home beer brewing blog at <http://birdbrainsbrewing.com>. But in the spring of 2016, I switched to using Wren. Much of the content had to be converted from Textile to Markdown.
 

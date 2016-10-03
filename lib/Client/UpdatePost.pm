@@ -129,6 +129,8 @@ sub update_post {
     my $original_slug   = $q->param("original_slug");
 
     my $markup = Encode::decode_utf8($original_markup);
+
+# jrs commented this out on 31Aug2016 for testing. 
     $markup = HTML::Entities::encode($markup,'^\n^\r\x20-\x25\x27-\x7e');
 
     my $api_url = Config::get_value_for("api_url");

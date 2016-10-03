@@ -1,5 +1,6 @@
 textarea {
-    font-family: "Courier New", Courier,  monospace, sans-serif; 
+    /* font-family: "Courier New", Courier,  monospace, sans-serif;  */
+    font-family: monospace, sans-serif; 
     font-size: 90%;
     overflow: auto;
     color: #222;

@@ -12,20 +12,23 @@ img {
 
 body {
    /* background-color:#fcfcfc; super light grey, barely noticeable to my eyes */
-    background-color:#fafafa;   /* ia.net blog light grey background */
     /* background-color: #eeeeee;  medium grey background */
     /* color: #222; */  /* used with font-size: 1.2rem */
-    color: #333;   /* used with font-size: 1.25rem */
+    /* font-family: Arial, Helvetica, sans-serif; */
     /* font-family: "Courier New", Courier,  monospace, sans-serif; */
-    font-family:  "Courier New", monospace, sans-serif;
+    /* font-family:  "Courier New", monospace, sans-serif; */
     /* font-size: 1.157rem; */
-    font-size: 1.25rem;
+    /* font-family: Georgia, serif; - use font-size: 22px; */
+    /* toledotalk.com light grey theme that i use 
+        background: #f7f7f7;
+        color: #222222; */
+
+    background-color:#fafafa;   /* ia.net blog light grey background */
+    color: #333;   /* used with font-size: 1.25rem */
+    font-family: Verdana, Geneva, sans-serif; 
+    font-size: 1.25rem; 
     line-height: 1.95rem;
     margin: 0;
-
-/* toledotalk.com light grey theme that i use 
-    background: #f7f7f7;
-    color: #222222; */
 }
 
 blockquote {
@@ -110,7 +113,8 @@ hr {
 article {
     position: relative;
     /* max-width: 42.5rem; 680 px */
-    max-width: 45rem; /* 720 px */
+    /* max-width: 45rem;*/  /* 720 px use with monospace */
+    max-width: 42.5rem;
     margin-top: 0;
     margin-right: auto;
     margin-bottom: 0;
@@ -252,8 +256,7 @@ pre code {
     }
 
     body {
-        font-size: 1.25rem;
-        font-family:  monospace, sans-serif;
+        /* font-family:  monospace, sans-serif; */
     }
  
     blockquote {

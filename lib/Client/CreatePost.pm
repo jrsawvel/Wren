@@ -54,6 +54,7 @@ sub create_post {
     my $original_markup = $q->param("markup");
 
     my $markup = Encode::decode_utf8($original_markup);
+# jrs commented this out on 31Aug2016 for testing. 
     $markup = HTML::Entities::encode($markup,'^\n^\r\x20-\x25\x27-\x7e');
 
     my $api_url = Config::get_value_for("api_url");

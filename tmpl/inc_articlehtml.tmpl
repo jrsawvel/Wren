@@ -1,4 +1,4 @@
-<article>
+<article class="h-entry">
 <header>
 <!-- tmpl_if usingtoc -->
 <div id="toc">
@@ -7,7 +7,15 @@
 <!-- /tmpl_loop -->
 </div>
 <!-- /tmpl_if -->
-<h1><!-- tmpl_var name="title" --></h1> 
+<h1 class="p-name"><!-- tmpl_var name="title" --></h1> 
 </header>
+<div class="e-content">
 <!-- tmpl_var name="html" -->
+</div>
+<footer style="display:none;">
+<p>
+<a class="p-author h-card"  href="/about"><!-- tmpl_var name="author_name" --></a> - 
+<a class="u-url" href="<!-- tmpl_var name="url" -->">#</a>
+</p>
+</footer>
 </article>

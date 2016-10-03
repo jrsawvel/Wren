@@ -33,6 +33,10 @@ close($fh) or warn "close failed: $!";
 
 
     my $markup = Encode::decode_utf8($original_markup);
+
+# use this line if the markup file contains extended ascii chars.
+# if the markup contains extended ascii chars converted to entities, then do not use this line.
+# maybe make it a command line option for this program.
     $markup = HTML::Entities::encode($markup,'^\n^\r\x20-\x25\x27-\x7e');
 
 

@@ -1,65 +1,113 @@
-a,
-a:hover,
-a:visited,
-a:visited:hover {
-    text-decoration: underline
-}
-
-b,
-h1,
-h3,
-h4,
-h5,
-h6,
-strong {
-    color: #fff
-}
-
-h4,
-h5 {
-    text-align: left
-}
-
-h1,
-h2,
-h3,
-h6 {
-    text-align: center
-}
-
-body,
-h5,
-h6,
-html {
-    margin: 0
-}
-
-article,
-h1,
-h2,
-h5,
-h6,
-html,
-p,
-pre code {
-    padding: 0
-}
-
 html {
     height: 100%;
-    max-height: 100%
+    max-height: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
 }
 
 img {
-    max-width: 100%
+    max-width: 100%;
 }
 
 body {
-    line-height: 165%;
-    background: #333;
-    color: #eee;
-    font-size: 140%;
-    font-family: monospace
+    background-color:#333; 
+    color: #eee;   
+    font-family:  "Courier New", monospace, sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.95rem;
+    margin: 0;
+}
+
+blockquote {
+    border-left: 1px solid #666;
+    color: #ccc;
+    background: #000;
+    margin: 35px 0 35px .6em;
+    padding: 0 0 0 1em;
+}
+
+a {
+    color: #3ff;
+    text-decoration: underline; 
+}
+
+a:visited {
+    color: #f9f;
+    text-decoration: underline; 
+} 
+
+a:hover {
+    color: #9acd32;
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline; 
+    color: #ff0000;
+}
+
+strong, b {
+    color: #fff;
+}
+
+li, ul {
+    margin-bottom: 0.625rem;
+} 
+
+
+p {
+    padding: 0;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+    margin-top: 1.875rem;
+    text-align:center;
+    color: #fff;
+}
+
+h2 {
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+    color: #777;
+    font-style: italic;
+    text-align:center;
+    font-size: 100%;
+}
+
+h3, h4 {
+    padding-top: 1.875rem;
+    text-align: left;
+    color: #fff;
+}
+
+hr {
+   border: 0; 
+   height: 1px; 
+   background: #ddd;
+   width: 100%;
+   margin-top:2rem;
+   margin-bottom:2rem;
+}
+
+article {
+    position: relative;
+    max-width: 45rem; 
+    margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    padding: 0;
+}
+
+pre code {
+    padding: 0
 }
 
 code,
@@ -76,83 +124,14 @@ pre code {
     background: 0 0
 }
 
-a {
-    color: #3ff
-}
-
-a:visited {
-    color: #f9f
-}
-
-a:hover,
-a:visited:hover {
-    color: #9acd32
-}
-
-li,
-ul {
-    margin-bottom: 10px
-}
-
-p {
-    margin-top: 40px;
-    margin-bottom: 40px
-}
-
-blockquote {
-    border-left: 1px solid #666;
-    color: #ccc;
-    background: #000;
-    margin: 35px 0 35px .6em;
-    padding: 0 0 0 1em
-}
-
-h1 {
-    margin: 20px 0 0;
-    text-transform: uppercase
-}
-
-h2 {
-    margin: 10px 0;
-    color: #777;
-    font-style: italic
-}
-
-h3,
-h4 {
-    padding-top: 30px
-}
-
-h6 {
-    font-weight: 400
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: 100%
-}
-
-hr {
-    border: 0;
-    height: 1px;
-    background: #ddd;
-    width: 25%;
-    margin-top: 2em;
-    margin-bottom: 2em
-}
-
-article {
-    position: relative;
-    max-width: 640px;
-    margin: 0 auto
-}
+/**** custom commands ****/
 
 .smallscreens {
-    display: none
+    display: none;
+}
+
+.largescreens {
+    display: inline; 
 }
 
 .home-link {
@@ -175,7 +154,7 @@ article {
 }
 
 .home-link a:hover {
-    color: #fff;
+    color: #000;
     text-decoration: underline
 }
 
@@ -191,17 +170,17 @@ article {
 }
 
 .sitewide-footer a:hover {
-    color: #fff;
+    color: #000;
     text-decoration: underline
 }
 
-.blacklinks a,
-.blacklinks a:visited {
+.titlelinks a,
+.titlelinks a:visited {
     color: #ccc;
     text-decoration: none
 }
 
-.blacklinks a:hover {
+.titlelinks a:hover {
     color: #fff;
     text-decoration: underline
 }
@@ -251,20 +230,51 @@ article {
     margin-left: 1.2em
 }
 
-@media only screen and (max-width:45em) {
+    
+/***** Media Queries *****/
+
+/* 45rem = 720px */
+@media only screen and (max-width: 45rem) {
     article {
-        max-width: 95%
+        max-width: 90%;
     }
+
     body {
-        font-size: 130%
+        font-size: 1.25rem;
+        font-family:  monospace, sans-serif;
     }
+ 
+    blockquote {
+        padding: 0 0 0 .5em;
+        margin: 35px 0 35px 0; 
+    } 
+
     ul {
-        padding-left: 20px
+        padding-left: 1.25rem;
     }
-    .home-link {
-        text-align: center
-    }
+
     h1 {
         margin-top: 30px
     }
+
+    .smallscreens {
+        display: inline;
+    }
+
+    .largescreens {
+        display: none; 
+    }
 }
+
+
+/*
+10px = 0.625rem
+12px = 0.75rem
+14px = 0.875rem
+16px = 1rem (base)
+18px = 1.125rem
+20px = 1.25rem
+24px = 1.5rem
+30px = 1.875rem
+32px = 2rem
+*/
