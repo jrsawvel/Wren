@@ -112,7 +112,7 @@ $hash_ref->{'custom_css'}           = $page_data->{custom_css};
     }
 
     if ( $markup =~ m|^<!--[\s]*description[\s]*:[\s]*(.+)-->|mi ) {
-        $hash_ref->{description}      = Utils::trim_spaces($1);
+        $hash_ref->{page_description}      = Utils::trim_spaces($1);
     }
 
     if ( $markup =~ m|^<!--[\s]*dir[\s]*:[\s]*(.+)-->|mi ) {

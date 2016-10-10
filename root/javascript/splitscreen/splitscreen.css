@@ -33,7 +33,8 @@ header, nav {
 }
 
 #tx_input {
-    font-family: "Courier New", Courier,  monospace, sans-serif;
+   /*  font-family: "Courier New", Courier,  monospace, sans-serif; */
+    font-family: monospace, sans-serif;
     font-size: 1em;   
     font-size: 90%;
     color: #222;

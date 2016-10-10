@@ -3,12 +3,7 @@
 
 <head>
     <title><!-- tmpl_var name="pagetitle" --></title>
-    <meta charset="UTF-8" /> 
-    <meta name="generator"          content="<!-- tmpl_var name="app_name" -->" />
-    <meta name=viewport             content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico" />
-    <link rel="apple-touch-icon"    href="/images/cawr-60x60.png" />
-    <!--    <link rel="stylesheet" type="text/css" href="<!-- tmpl_var name="css_dir_url" -->/wren.css"  />  -->
+<!-- tmpl_include name="inc_basemetalink.tmpl" -->
     <link rel="stylesheet" type="text/css" href="<!-- tmpl_var name="css_dir_url" -->/customarticle.css"  /> 
 <style>
 <!-- tmpl_include name="inc_minified-css.tmpl" -->
@@ -24,7 +19,7 @@
 <div id="custom-article-largeimageheader" style="background-image: url('<!-- tmpl_var name="imageheader" -->')">
   <div class="vertical">
     <div id="article-title"><!-- tmpl_var name="title" --></div>
-    <div id="article-description"><em><!-- tmpl_var name="description" --></em></div>
+    <div id="article-description"><em><!-- tmpl_var name="page_description" --></em></div>
   </div>
 </div>
 
