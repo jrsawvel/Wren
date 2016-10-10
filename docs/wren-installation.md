@@ -1,5 +1,73 @@
 # Wren Installation
 
+<!-- newline_to_br : no -->
+
+Linux installs:
+
+* sudo apt-get install gcc
+* sudo apt-get install make
+* sudo apt-get install libssl-dev
+* sudo apt-get install wget
+* sudo apt-get install nginx
+* sudo apt-get install perl
+
+---
+
+Fast CGI:
+
+* [Nginx and Perl-FastCGI on Ubuntu](https://www.linode.com/docs/websites/nginx/nginx-and-perlfastcgi-on-ubuntu-12-04-lts-precise-pangolin)
+ * sudo apt-get install spawn-fcgi
+ * sudo apt-get install fcgiwrap
+
+edit `/etc/init.d/fcgiwrap` and add the following lines:
+
+* FCGI_PORT="8999"
+* FCGI_ADDR="127.0.0.1"
+
+comment out the following line:
+
+* FCGI_SOCKET="/var/run/$NAME.socket"
+
+set the USER and GROUP appropriately.
+
+---
+
+
+Perl modules installs:
+
+    $ sudo cpan
+    cpan[1]> upgrade
+
+or `sudo perl -MCPAN -e 'upgrade'`
+
+The above will update and test all of the Perl packages. The process may take several minutes to complete.
+
+
+* sudo perl -MCPAN -e 'install "URI"'
+* sudo perl -MCPAN -e 'install "YAML"'
+* sudo perl -MCPAN -e 'install HTML::Parser'
+* sudo perl -MCPAN -e 'install HTML::Entities'
+* sudo perl -MCPAN -e 'install "LWP"'
+
+
+---
+
+
+**Wren-required modules to install:**
+
+* sudo perl -MCPAN -e 'install HTML::Template' 
+* sudo perl -MCPAN -e 'install Crypt::SSLeay'
+* sudo perl -MCPAN -e 'install WWW::Mailgun' 
+* JSON::PP - maybe no need to install. from the perldoc: JSON::PP had been included in JSON distribution (CPAN module). It was a perl core module in Perl 5.14.
+
+On my Digital Ocean droplet, I'm using perl 5, version 14, subversion 2 (v5.14.2), 2011. But I'm fairly certain that I needed to install JSON:PP or include the pure perl files for this module in my programs' lib tree.
+
+On my AWS EC2 server, perl 5, version 18, subversion 2 (v5.18.2), 2013. I did not have to install JSON::PP.
+
+
+---
+
+
 Obviously, this needs to be made simpler.
 
 Make appropriate DNS changes for the domain name or subdomain name.
