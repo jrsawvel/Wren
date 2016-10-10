@@ -1,8 +1,7 @@
 # Wren Installation
 
-<!-- newline_to_br : no -->
 
-Linux installs:
+Linux app installs on a clean machine:
 
 * sudo apt-get install gcc
 * sudo apt-get install make
@@ -33,7 +32,7 @@ set the USER and GROUP appropriately.
 ---
 
 
-Perl modules installs:
+Perl module installs:
 
     $ sudo cpan
     cpan[1]> upgrade
@@ -42,6 +41,7 @@ or `sudo perl -MCPAN -e 'upgrade'`
 
 The above will update and test all of the Perl packages. The process may take several minutes to complete.
 
+If these modules don't exist, they need to be installed:
 
 * sudo perl -MCPAN -e 'install "URI"'
 * sudo perl -MCPAN -e 'install "YAML"'
@@ -58,7 +58,7 @@ The above will update and test all of the Perl packages. The process may take se
 * sudo perl -MCPAN -e 'install HTML::Template' 
 * sudo perl -MCPAN -e 'install Crypt::SSLeay'
 * sudo perl -MCPAN -e 'install WWW::Mailgun' 
-* JSON::PP - maybe no need to install. from the perldoc: JSON::PP had been included in JSON distribution (CPAN module). It was a perl core module in Perl 5.14.
+* JSON::PP - may not need to install. from the perldoc: JSON::PP had been included in JSON distribution (CPAN module). It was a perl core module in Perl 5.14.
 
 On my Digital Ocean droplet, I'm using perl 5, version 14, subversion 2 (v5.14.2), 2011. But I'm fairly certain that I needed to install JSON:PP or include the pure perl files for this module in my programs' lib tree.
 
@@ -101,5 +101,6 @@ Then on the server as user `root`:
 * visit http://your.domain.name/wren/login and enter email address stored in YAML file.
 * check email for login activation link and click link.
 * then visit http://your.domain.name/wren/create and post away
+
 
 
