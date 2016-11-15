@@ -67,8 +67,40 @@ On my AWS EC2 server, perl 5, version 18, subversion 2 (v5.18.2), 2013. I did no
 
 ---
 
+If wanting to have Wren copy the .html and .txt files to an S3 bucket, during creates and updates, then the following needs to be installed.
 
-Obviously, this needs to be made simpler.
+stackoverflow.com - [XML::Parser refusing to isntall](http://stackoverflow.com/questions/13986282/xmlparser-refusing-to-install)
+
+    apt-cache search expat
+
+(look for package that states "XML parsing C library - development kit")
+
+    sudo apt-get install libexpat1-dev
+
+that should resolve the missing `expat.h` file, and now the install of this module should work:
+
+    sudo perl -MCPAN -e 'install XML::Parser'
+
+then do:
+
+    sudo perl -MCPAN -e 'install XML::Simple'
+    sudo perl -MCPAN -e 'install Amazon::S3'
+
+
+How to use this module:
+
+<http://docs.ceph.com/docs/giant/radosgw/s3/perl>
+
+<https://metacpan.org/pod/Amazon%3a%3aS3>
+
+
+Within the Wren, edit `lib/API/Files.pm` and uncomment the lines that use or need the S3.pm module that's included in the same directory. Then edit the `yaml/wren.yml` config file and add the AWS keys.
+
+
+---
+
+
+Obviously, the Wren install and setup need to be made simpler.
 
 Make appropriate DNS changes for the domain name or subdomain name.
 
@@ -101,6 +133,4 @@ Then on the server as user `root`:
 * visit http://your.domain.name/wren/login and enter email address stored in YAML file.
 * check email for login activation link and click link.
 * then visit http://your.domain.name/wren/create and post away
-
-
 

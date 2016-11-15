@@ -24,3 +24,5 @@
     sitemap_file:                   /home/username/Wren/root/sitemap.xml
     max_entries:                    20
     preview_only_key:               anything-can-be-used
+    aws_access_key_id:              
+    aws_secret_access_key:          

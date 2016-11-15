@@ -7,6 +7,9 @@ use diagnostics;
 use Time::Local;
 use File::Path qw(make_path remove_tree);
 use JSON::PP;
+use API::Error;
+# use API::S3;
+
 
 sub output {
     my $submit_type = shift;
@@ -79,6 +82,8 @@ sub output {
        _create_microformatted_file($hash_ref, $stream);
        _create_sitemap_file($stream);
     }
+
+    # S3::copy_to_s3_bucket($hash_ref, $markup, $html_output);
 
     return 1;
 }

@@ -289,7 +289,8 @@ $(function() {
                   $('#saveposttext').set({$color: '#000'});
                   setTimeout(function() {$('#saveposttext').set({$color: '#f8f8f8'})}, 2000);
                   $('#splitscreenaction').set('@value', 'updateblog');
-                  $('#splitscreenpostid').set('@value', obj['post_id']);
+                  // $('#splitscreenpostid').set('@value', obj['post_id']);
+                  $('#splitscreenpostid').set('@value', obj['slug']);
                   $('#splitscreenpostrev').set('@value', obj['rev']);
                   
                 },

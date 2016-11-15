@@ -1,5 +1,6 @@
 # Wren README
 
+
 ### Brief Description
 
 * Built with Perl and HTML::Template
@@ -16,6 +17,7 @@
 * Client-side JavaScript is used only with the editor.
 * Reading time and word count are calculated for each post.
 * The author has a lot of freedom.
+* Optionally, the .html and .txt files can be copied to an AWS S3 bucket.
 
 
 ### Longer Description
@@ -43,12 +45,11 @@ Wren does not support Textile. That's a deviation from my other web publishing a
 These are my test Wren sites that use a combination of new posts and posts that I created elsewhere in the past:
 
 * <http://wren.soupmode.com>
-* <http://blog.soupmode.com>
 * <http://zwdqwr2p2xwkpbyv.onion>
 
 The .onion site is running on my Linux computer inside our home, provided that the computer is powered on. I installed the Tor server. The localhost site is powered by Nginx and Wren, which creates the HTML pages. Then I copy the HTML content to the location of the .onion site, which uses thttpd to serve the pages. I did this for testing.
 
-In September 2016, I created a Wren-backed website to store some of my old web postings that I have posted elsewhere, mainly at ToledoTalk.com, since 2001. The site is located at <http://boghop.com>.
+In September 2016, created a new Wren-powered site at <http://boghop.com> to host some of the web content that I have created since 2001. It will take a long time to get things copied. 
 
 In 2014, I used my Grebe publishing app to manage our home beer brewing blog at <http://birdbrainsbrewing.com>. But in the spring of 2016, I switched to using Wren. Much of the content had to be converted from Textile to Markdown.
 
@@ -66,4 +67,5 @@ When logged into Wren through a web browser, the author enters the commands in t
 Special formatting commands can be used within HMTL comments in the markup. The info is contained within the User Guide.
 
 The Wren Markdown is lightly flavored.
+
 
