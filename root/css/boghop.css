@@ -1,6 +1,18 @@
+a,
+a:active,
+a:hover,
+a:visited {
+    text-decoration: underline
+}
+
+body,
+hr,
+p {
+    margin-bottom: 40px
+}
+
 a:active,
 a:hover {
-    text-decoration: underline;
     color: red
 }
 
@@ -10,8 +22,7 @@ body {
     color: #222;
     padding: 0 10px;
     font-family: Verdana, Arial, sans-serif;
-    font-size: 20px;
-    margin: 20px auto 40px
+    font-size: 100%
 }
 
 h1 {
@@ -32,16 +43,15 @@ h4 {
 }
 
 h2 {
-    font-weight: normal;
-    margin: 20px 0 20px 0;
+    font-weight: 400;
+    margin: 20px 0;
     font-size: 23px;
     color: #555;
     font-style: italic
 }
 
 p {
-    margin-top: 40px;
-    margin-bottom: 40px
+    margin-top: 40px
 }
 
 img {
@@ -51,7 +61,7 @@ img {
 blockquote {
     border-left: 1px solid #666;
     background: #f2f2f2;
-    margin: 35px 0 35px .6em;
+    margin: 40px 0 40px 10px;
     padding: 0 0 0 1em
 }
 
@@ -78,13 +88,11 @@ ul {
 }
 
 a {
-    color: #00f;
-    text-decoration: underline
+    color: #00f
 }
 
 a:visited {
-    color: #c39;
-    text-decoration: underline
+    color: #c39
 }
 
 .blacklinks a,
@@ -94,12 +102,10 @@ a:visited {
 }
 
 article {
+    font-size: 20px;
     position: relative;
     max-width: 680px;
-    margin-top: 0;
-    margin-right: auto;
-    margin-bottom: 0;
-    margin-left: auto;
+    margin: 0 auto;
     padding: 0
 }
 
@@ -110,7 +116,6 @@ article {
 
 .home-link {
     line-height: 90%;
-    font-size: 85%;
     text-align: right;
     width: 100%;
     top: 10px;
@@ -134,8 +139,7 @@ article {
 
 .sitewide-footer {
     margin-top: 20px;
-    text-align: center;
-    font-size: 85%
+    text-align: center
 }
 
 .sitewide-footer a,
@@ -154,6 +158,5 @@ hr {
     height: 1px;
     background: #ddd;
     width: 100%;
-    margin-top: 2rem;
-    margin-bottom: 2rem
+    margin-top: 40px
 }

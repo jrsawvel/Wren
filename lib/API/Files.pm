@@ -8,7 +8,7 @@ use Time::Local;
 use File::Path qw(make_path remove_tree);
 use JSON::PP;
 use API::Error;
-# use API::S3;
+use API::S3;
 
 
 sub output {
@@ -33,8 +33,8 @@ sub output {
         $t->set_template_variable("imageheader", $hash_ref->{imageheader});
     }
 
-    if ( exists($hash_ref->{page_description}) ) {
-        $t->set_template_variable("page_description", $hash_ref->{page_description});
+    if ( exists($hash_ref->{description}) ) {
+        $t->set_template_variable("description", $hash_ref->{description});
     }
 
     if ( $hash_ref->{toc} ) {
@@ -48,14 +48,6 @@ sub output {
         $t->set_template_variable("using_custom_css", "1");
         $t->set_template_variable("custom_css", $hash_ref->{custom_css});
     } 
-
-    if ( exists($hash_ref->{dir}) ) {
-        $t->set_template_variable("url", Config::get_value_for("home_page") . "/" . $hash_ref->{dir} . "/" . $hash_ref->{slug} . ".html");
-    } else {
-        $t->set_template_variable("url", Config::get_value_for("home_page") . "/" . $hash_ref->{slug} . ".html");
-    }
-
-    $t->set_template_variable("post_type", $hash_ref->{post_type});
 
     my $html_output  = $t->create_html_page($hash_ref->{title});
 
@@ -83,7 +75,7 @@ sub output {
        _create_sitemap_file($stream);
     }
 
-    # S3::copy_to_s3_bucket($hash_ref, $markup, $html_output);
+    _copy_to_s3_bucket($hash_ref, $markup, $html_output);
 
     return 1;
 }
@@ -98,7 +90,8 @@ sub _save_markup_to_storage_directory {
     my $tmp_slug = $hash_ref->{slug};
 
     if ( exists($hash_ref->{dir}) ) {
-        $save_markup .=  "<!-- dir : $hash_ref->{dir} -->\n";
+        # 2oct2016 commented out because unnecessary since markup would already contain the exact same dir command
+        # $save_markup .=  "<!-- dir : $hash_ref->{dir} -->\n";
         $tmp_slug = Utils::clean_title($hash_ref->{dir}) . "-" . $tmp_slug;
     }
 
@@ -233,7 +226,7 @@ sub read_markup_file {
 sub _update_json_file {
     my $hash_ref = shift;
 
-    my $filename = Config::get_value_for("links_json_file");
+    my $filename = Config::get_value_for("default_doc_root") . "/" . Config::get_value_for("links_json_file");
 
     my $json_text;
  
@@ -309,7 +302,7 @@ sub _create_rss_file {
     my $rss_output  = $t->create_file();
 
     # write rss to file
-    my $rss_filename = Config::get_value_for("rss_file");
+    my $rss_filename = Config::get_value_for("default_doc_root") . "/" . Config::get_value_for("rss_file");
     if ( $rss_filename =~  m/^([a-zA-Z0-9\/\.\-_]+)$/ ) {
         $rss_filename = $1;
     } else {
@@ -319,6 +312,7 @@ sub _create_rss_file {
     print FILE $rss_output . "\n";
     close FILE;
 
+#    S3::copy_to_s3(Config::get_value_for("rss_file"),  $rss_output, "text/xml");
 }
 
 
@@ -339,7 +333,7 @@ sub _create_sitemap_file {
     my $sitemap_output  = $t->create_file();
 
     # write sitempa to file
-    my $sitemap_filename = Config::get_value_for("sitemap_file");
+    my $sitemap_filename = Config::get_value_for("default_doc_root") . "/" . Config::get_value_for("sitemap_file");
     if ( $sitemap_filename =~  m/^([a-zA-Z0-9\/\.\-_]+)$/ ) {
         $sitemap_filename = $1;
     } else {
@@ -348,6 +342,8 @@ sub _create_sitemap_file {
     open FILE, ">$sitemap_filename" or Error::report_error("500", "Unable to open sitemap file for write.", "$!");
     print FILE $sitemap_output . "\n";
     close FILE;
+
+#    S3::copy_to_s3(Config::get_value_for("sitemap_file"),  $sitemap_output, "text/xml");
 }
 
 
@@ -372,7 +368,7 @@ sub _create_microformatted_file {
     my $mft_output  = $t->create_html_page("Microformatted Homepage of Article Links");
 
     # write microformattted content to file
-    my $mft_filename = Config::get_value_for("mft_file");
+    my $mft_filename = Config::get_value_for("default_doc_root") . "/" . Config::get_value_for("mft_file");
     if ( $mft_filename =~  m/^([a-zA-Z0-9\/\.\-_]+)$/ ) {
         $mft_filename = $1;
     } else {
@@ -381,6 +377,29 @@ sub _create_microformatted_file {
     open FILE, ">$mft_filename" or Error::report_error("500", "Unable to open microformatted file for write.", "$!");
     print FILE $mft_output . "\n";
     close FILE;
+
+#    S3::copy_to_s3(Config::get_value_for("mft_file"),  $mft_output, "text/html");
 }
+
+sub _copy_to_s3_bucket {
+    my $hash_ref = shift;
+    my $markup   = shift;
+    my $html     = shift;
+
+    my $relative_txt_file;
+    my $relative_html_file;
+
+    if ( exists($hash_ref->{dir}) ) {
+        $relative_txt_file =  $hash_ref->{dir} . "/" . $hash_ref->{slug} . ".txt"; 
+        $relative_html_file =  $hash_ref->{dir} . "/" . $hash_ref->{slug} . ".html"; 
+    } else {
+        $relative_txt_file =  $hash_ref->{slug} . ".txt"; 
+        $relative_html_file =  $hash_ref->{slug} . ".html"; 
+    }
+
+#    S3::copy_to_s3($relative_txt_file,  $markup, "text/plain");
+#    S3::copy_to_s3($relative_html_file, $html,   "text/html");
+}
+
 
 1;

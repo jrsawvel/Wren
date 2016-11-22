@@ -18,10 +18,10 @@
     mailgun_api_key:                key-mailgun_api_key
     mailgun_domain:                 mailgun_domain
     mailgun_from:                   Mailgun Sandbox <mailgun_from>
-    links_json_file:                /home/username/Wren/root/links.json
-    rss_file:                       /home/username/Wren/root/rss.xml
-    mft_file:                       /home/username/Wren/root/mft.html
-    sitemap_file:                   /home/username/Wren/root/sitemap.xml
+    links_json_file:                links.json
+    rss_file:                       rss.xml
+    mft_file:                       mft.html
+    sitemap_file:                   sitemap.xml
     max_entries:                    20
     preview_only_key:               anything-can-be-used
     aws_access_key_id:              
