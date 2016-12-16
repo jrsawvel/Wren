@@ -22,6 +22,7 @@ my $dispatch_for = {
     splitscreen        =>   sub { return \&do_sub(       "CreatePost",     "show_splitscreen_form"    ) },
     splitscreenedit    =>   sub { return \&do_sub(       "UpdatePost",     "splitscreen_edit"         ) },
     search             =>   sub { return \&do_sub(       "Search",         "search"                   ) },
+    webmention         =>   sub { return \&do_sub(       "Webmention",     "webmention"               ) },
 };
 
 sub execute {

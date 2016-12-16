@@ -22,6 +22,7 @@
     rss_file:                       rss.xml
     mft_file:                       mft.html
     sitemap_file:                   sitemap.xml
+    webmentions_file:               webmentions.txt
     max_entries:                    20
     preview_only_key:               anything-can-be-used
     aws_access_key_id:              

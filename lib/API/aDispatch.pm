@@ -12,6 +12,7 @@ my $dispatch_for = {
     posts              =>   sub { return \&do_sub(       "Posts",       "posts"                    ) },
     users              =>   sub { return \&do_sub(       "Users",       "users"                    ) },
     searches           =>   sub { return \&do_sub(       "Searches",    "searches"                 ) },
+    webmentions        =>   sub { return \&do_sub(       "Webmentions", "webmentions"              ) },
     showerror          =>   sub { return \&do_sub(       "Error",       "error"                    ) },
 };
 
