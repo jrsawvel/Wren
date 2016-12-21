@@ -1,6 +1,3 @@
-var MINI = require('minified'); 
-var $ = MINI.$, $$ = MINI.$$, EE = MINI.EE;
-
 var keyCounter=0;
 var autoSaveInterval=300000   // in milliseconds. default = 5 minutes.
 var intervalID=0;
@@ -11,8 +8,16 @@ var isFocus=0;
 function countKeyStrokes () {
     keyCounter++;    
 }
-    
-$(function() {
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+//    jQuery( window ).bind( 'resize', sync_panels ).trigger( 'resize' );
+
+    window.onresize = sync_panels;
+
+    var handler = window.onresize;
+    handler();
 
     onkeydown = function(e){
         if(e.ctrlKey && e.keyCode == 'P'.charCodeAt(0)){
@@ -35,41 +40,45 @@ $(function() {
         // bare minimum view. large textarea box only. no border. no nav bar. no other links. no buttons.
         if(e.ctrlKey && e.keyCode == 'J'.charCodeAt(0)){
             e.preventDefault();
-            $('body').set({$background: '#fff'} );
-            $('#navmenu').set({$display: 'none'} );
-            $('#tx_input').set({$background: '#fff'} );
-            $('#tx_input').set({$border: 'none'} );
-            $('#tx_input').set({$color: '#222'} );
-            $('#col_left').set({$padding: '1em 0 0 0'} );
+            // document.getElementsByTagName('body')[0].style.background = "#fff";
+            document.body.style.background = "#fff";
+            document.getElementById('navmenu').style.display = "none";
+            document.getElementById('tx_input').style.background = "#fff";
+            document.getElementById('tx_input').style.border = "none";
+            document.getElementById('tx_input').style.color = "#222";
+            document.getElementById('col_left').style.padding = "1em 0 0 0";
             singleScreenMode();
         }
 
         // display a 5-line text area box
         if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
             e.preventDefault();
-            $('body').set({$background: '#fff'} );
-            $('#navmenu').set({$display: 'none'} );
-            $('#tx_input').set({$background: '#fff'} );
-            $('#tx_input').set({$border: 'none'} );
-            $('#tx_input').set({$color: '#222'} );
-            $('#tx_input').set({$height: '150px'} );
-            $('#tx_input').set({$margin: '30% 0 0 0'} );
-            $('#col_left').set({$padding: '1em 0 0 0'} );
+            document.body.style.background = "#fff";
+            document.getElementById('navmenu').style.display = "none";
+            document.getElementById('tx_input').style.background = "#fff";
+            document.getElementById('tx_input').style.border = "none";
+            document.getElementById('tx_input').style.color = "#222";
+            document.getElementById('tx_input').style.height = "150px";
+            document.getElementById('tx_input').style.margin = "30% 0 0 0";
+            document.getElementById('col_left').style.padding = "1em 0 0 0";
+
             isFocus=1;
             singleScreenMode();
         }
 
         if(e.ctrlKey && e.keyCode == 'B'.charCodeAt(0)){
             e.preventDefault();
-            $('body').set({$background: '#ddd'} );
-            $('#navmenu').set({$display: 'inline'} );
-            $('#tx_input').set({$background: '#f8f8ff'} );
-            $('#tx_input').set({$border: '1px solid #bbb'} );
-            $('#tx_input').set({$color: '#222'} );
-            $('#col_left').set({$padding: '0'} );
+            document.body.style.background = "#ddd";
+            document.getElementById('navmenu').style.display = "inline";
+            document.getElementById('tx_input').style.background = "#f8f8f8";
+            document.getElementById('tx_input').style.border = "1px solid #bbb";
+            document.getElementById('tx_input').style.color = "#222";
+            document.getElementById('col_left').style.padding = "0";
+
             if ( isFocus ) {            
-                $('#tx_input').set({$margin: '0 0 0 0'} );
-                $('#tx_input').set({$height: '100%'} );
+                document.getElementById('tx_input').style.margin = "0 0 0 0";
+                document.getElementById('tx_input').style.height = "100%";
+
                 ifFocus=0;
             }
             splitScreenMode();
@@ -77,9 +86,9 @@ $(function() {
 
         if(e.ctrlKey && e.keyCode == 'D'.charCodeAt(0)){
             e.preventDefault();
-            $('body').set({$background: '#181818'} );
-            $('#tx_input').set({$background: '#181818'} );
-            $('#tx_input').set({$color: '#c0c0c0'} );
+            document.body.style.background = "#181818";
+            document.getElementById('tx_input').style.background = "#181818";
+            document.getElementById('tx_input').style.color = "#c0c0c0";
         }
     }
 
@@ -92,15 +101,15 @@ $(function() {
 // SINGLE-SCREEN MODE
 // ******************** 
 
-    $('#moveButton').on('click', singleScreenMode);
+    document.getElementById('moveButton').onclick = singleScreenMode;
 
     function singleScreenMode () {
-        $('#text_preview').animate({$$fade: 0}, 500); // fade out
-        $('#tx_input').animate({$$fade: 1}, 500); // fade in
-        $('#col_right').set('$', '+col -prevsinglecol');
-        $('#col_left').set('$', '+singlecol -col');
-        $('#col_right').set({$float: 'right'} );
-        $('#col_right').set({$position: 'relative'} );
+        fadeOut(document.getElementById('text_preview'));
+        fadeIn(document.getElementById('tx_input')); // it seems this is unnecessary
+        document.getElementById('col_left').className = "singlecol"; // change css class from "col" to "singlecol"
+        document.getElementById('col_right').className = "col"; // change css class from "prevsinglecol" to "col"
+        document.getElementById('col_right').style.cssFloat = "right";
+        document.getElementById('col_right').style.position = "relative";
         document.getElementById('tx_input').focus();
     }
 
@@ -109,15 +118,17 @@ $(function() {
 // SPLIT-SCREEN MODE
 // ******************** 
 
-    $('#resetButton').on('click', splitScreenMode);
+    document.getElementById('resetButton').onclick = splitScreenMode;
 
-    function splitScreenMode () {
-        $('#tx_input').animate({$$fade: 1}, 500); // fade in 
-        $('#text_preview').animate({$$fade: 1}, 500); // fade in 
-        $('#col_left').set('$', '+col -singlecol');
-        $('#col_right').set('$', '+col -prevsinglecol');
-        $('#col_right').set({$float: 'right'} );
-        $('#col_right').set({$position: 'relative'} );
+    function splitScreenMode () { 
+        fadeIn(document.getElementById('tx_input'));
+        fadeIn(document.getElementById('text_preview'));
+
+        document.getElementById('col_left').className = "col"; // change css class from "singlecol" to "col"
+        document.getElementById('col_right').className = "col"; // change css class from "prevsinglecol" to "col"
+
+        document.getElementById('col_right').style.cssFloat = "right";
+        document.getElementById('col_right').style.position = "relative";
         document.getElementById('tx_input').focus();
     }
 
@@ -126,34 +137,33 @@ $(function() {
 // PREVIEW
 // ********** 
 
-    $('#previewButton').on('click', previewPost);
+    document.getElementById('previewButton').onclick = previewPost;
 
-    function previewPost () {
-        var col_type = $('#col_left').get('@class');
+    function previewPost () { 
+     
+        var col_type = document.getElementById('col_left').className;
 
-        var action        = $('#splitscreenaction').get('@value');
-        var cgiapp        = $('#splitscreencgiapp').get('@value');
-        var apiurl        = $('#splitscreenapiurl').get('@value');
-        var postrev       = $('#splitscreenpostrev').get('@value');
+        var action  = document.getElementById('splitscreenaction').value;
+        var cgiapp  = document.getElementById('splitscreencgiapp').value;
+        var apiurl  = document.getElementById('splitscreenapiurl').value;        
+        var postrev = document.getElementById('splitscreenpostrev').value;
 
         var postid = 0;
-        postid        = $('#splitscreenpostid').get('@value');
-
-        var rest_action = "POST";
-        if ( postid > 0 ) {
-            rest_action = "PUT";
-        }
+        postid = document.getElementById('splitscreenpostid').value;
 
         if ( col_type === "singlecol" ) { 
-            $('#col_left').set('$', '+col -singlecol');
-            $('#tx_input').animate({$$fade: 0}, 500); // fade out
-            $('#col_right').set('$', '+prevsinglecol -col');
-            $('#col_right').set({$float: 'normal'} );
-            $('#col_right').set({$position: 'absolute'} );
-            $('#text_preview').animate({$$fade: 1}, 500); // fade in 
+            document.getElementById('col_left').className = "col"; // change css class from "singlecol" to "col"
+
+            fadeOut(document.getElementById('tx_input'));
+
+            document.getElementById('col_right').className = "prevsinglecol"; // change css class from "col" to "prevsinglecol"
+
+            document.getElementById('col_right').style.cssFloat = "normal";
+            document.getElementById('col_right').style.position = "absolute";
+            fadeIn(document.getElementById('text_preview'));
         } 
 
-        var markup = $$('#tx_input').value;
+        var markup = document.getElementById('tx_input').value;
 
         var regex = /^autosave=(\d+)$/m;
         var myArray;
@@ -169,8 +179,6 @@ $(function() {
 
         var paramstr;
 
-// alert(apiurl);
-
         var author_name  = getCookie('wrenauthor_name');
         var session_id   = getCookie('wrensession_id');
         var rev          = getCookie('wrenrev');
@@ -185,30 +193,46 @@ $(function() {
             original_slug:     postid,
         };
 
-        var json_str = $.toJSON(myRequest);
+        var json_str = JSON.stringify(myRequest);       
+  
+        // may need to reference this for cors or cross domain posting
+        // http://stackoverflow.com/questions/5584923/a-cors-post-request-works-from-plain-javascript-but-why-not-with-jquery
+        // or at http://blog.garstasio.com/you-dont-need-jquery/ajax/#cors
 
-        jQuery.ajax({
-                url: apiurl + '/posts',
-                type: rest_action,
-                crossDomain: true,
-                data: json_str,
-                contentType:"application/json; charset=utf-8",
-                dataType:"json",
-                success: function (data, textStatus, xhr) {
-                    var obj = $.parseJSON(xhr.responseText);
-                 if ( obj['post_type'] == "article" ) {
-                     $('#text_preview').set('innerHTML', '<h1>' + obj['title'] + '</h1>' + obj['html']);
-                 } else {
-                     $('#text_preview').set('innerHTML', obj['html']);
-                 }
-                    
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    var obj = $.parseJSON(xhr.responseText);
-                    $('#text_preview').set('innerHTML', '<h1>Error</h1>' + obj['user_message'] + ' ' + obj['system_message']);
+        var request = new XMLHttpRequest();
+
+        if ( postid > 0 ) {
+            request.open('PUT', apiurl + '/posts', true);
+        } else {
+            request.open('POST', apiurl + '/posts', true);
+        }
+
+        request.withCredentials = true;
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                var resp = request.responseText;
+                var obj = JSON.parse(resp);
+                if ( obj['post_type'] == "article" ) {
+                    document.getElementById('text_preview').innerHTML = '<h1>' + obj['title'] + '</h1>' + obj['html'];
+                } else {
+                    document.getElementById('text_preview').innerHTML = obj['html'];
                 }
-        });
+            } else {
+                // reached the target server, but it returned an error
+                var resp = request.responseText;
+                var obj = JSON.parse(resp);
+                document.getElementById('text_preview').innerHTML = '<h1>Error</h1>' + obj['user_message'] + ' ' + obj['system_message'];
+            }
+        };
 
+        request.onerror = function() {
+            // There was a connection error of some sort
+            document.getElementById('text_preview').innerHTML = '<h1>Server Connection Error</h1> Unable to connect to ' + apiurl + '/posts';
+        };
+
+        request.send(json_str);
 
     } // end preview post function
 
@@ -217,7 +241,7 @@ $(function() {
 // SAVE
 // ********** 
 
-    $('#saveButton').on('click', forceSave);
+    document.getElementById('saveButton').onclick = forceSave;
 
     function forceSave () {
         keyCounter++;
@@ -225,7 +249,7 @@ $(function() {
     }
 
     function savePost () {
-        var markup = $$('#tx_input').value;
+        var markup = document.getElementById('tx_input').value;
 
         currLength = markup.length;
 
@@ -236,23 +260,20 @@ $(function() {
         prevLength = currLength; 
         keyCounter=0;
  
-        var col_type = $('#col_left').get('@class');
+        var col_type = document.getElementById('col_left').className;
 
-        var action        = $('#splitscreenaction').get('@value');
-        var cgiapp        = $('#splitscreencgiapp').get('@value');
-        var apiurl        = $('#splitscreenapiurl').get('@value');
-        var postid        = $('#splitscreenpostid').get('@value');
-        var postrev       = $('#splitscreenpostrev').get('@value');
-
+        var action  = document.getElementById('splitscreenaction').value;
+        var cgiapp  = document.getElementById('splitscreencgiapp').value;
+        var apiurl  = document.getElementById('splitscreenapiurl').value;
+        var postid  = document.getElementById('splitscreenpostid').value;
+        var postrev = document.getElementById('splitscreenpostrev').value;
 
         markup=escape(markup);
 
         var sbtype = "Create";
-        var rest_action = "POST";
 
         if ( action === "updateblog" ) {
             sbtype = "Update";
-            rest_action = "PUT";
         }
 
         var author_name  = getCookie('wrenauthor_name');
@@ -270,35 +291,48 @@ $(function() {
             original_slug:     postid,
         };
 
-        var json_str = $.toJSON(myRequest);
+        var json_str = JSON.stringify(myRequest);       
 
-        jQuery.ajax({
-                url: apiurl + '/posts',
-                type: rest_action,
-                crossDomain: true,
-                data: json_str,
-                contentType:"application/json; charset=utf-8",
-                dataType:"json",
-                success: function (data, textStatus, xhr) {
-                    var obj = $.parseJSON(xhr.responseText);
-                 if ( obj['post_type'] == "article" ) {
-                     $('#text_preview').set('innerHTML', '<h1>' + obj['title'] + '</h1>' + obj['html']);
-                 } else {
-                     $('#text_preview').set('innerHTML', obj['html']);
-                 }
-                  $('#saveposttext').set({$color: '#000'});
-                  setTimeout(function() {$('#saveposttext').set({$color: '#f8f8f8'})}, 2000);
-                  $('#splitscreenaction').set('@value', 'updateblog');
-                  // $('#splitscreenpostid').set('@value', obj['post_id']);
-                  $('#splitscreenpostid').set('@value', obj['slug']);
-                  $('#splitscreenpostrev').set('@value', obj['rev']);
-                  
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    var obj = $.parseJSON(xhr.responseText);
-                    $('#text_preview').set('innerHTML', '<h1>Error</h1>' + obj['user_message'] + ' ' + obj['system_message']);
+        var request = new XMLHttpRequest();
+
+        if ( action === "updateblog" ) {
+            request.open('PUT', apiurl + '/posts', true);
+        } else {
+            request.open('POST', apiurl + '/posts', true);
+        }
+
+        request.withCredentials = true;
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                var resp = request.responseText;
+                var obj = JSON.parse(resp);
+                if ( obj['post_type'] == "article" ) {
+                    document.getElementById('text_preview').innerHTML = '<h1>' + obj['title'] + '</h1>' + obj['html'];
+                } else {
+                    document.getElementById('text_preview').innerHTML = obj['html'];
                 }
-        });
+                document.getElementById('saveposttext').style.color = "#000"; 
+                // setTimeout(function() {$('#saveposttext').set({$color: '#f8f8f8'})}, 2000);
+                setTimeout(function() {document.getElementById('saveposttext').style.color = "#f8f8f8"}, 2000);
+                document.getElementById('splitscreenaction').value =   'updateblog';
+                document.getElementById('splitscreenpostid').value =   obj['slug'];
+                document.getElementById('splitscreenpostrev').value =  obj['rev']; 
+            } else {
+                // reached the target server, but it returned an error
+                var resp = request.responseText;
+                var obj = JSON.parse(resp);
+                document.getElementById('text_preview').innerHTML = '<h1>Error</h1>' + obj['user_message'] + ' ' + obj['system_message'];
+            }
+        };
+
+        request.onerror = function() {
+            // There was a connection error of some sort
+            document.getElementById('text_preview').innerHTML = '<h1>Server Connection Error</h1> Unable to connect to ' + apiurl + '/posts';
+        };
+
+        request.send(json_str);
 
 
     } // send save function
@@ -323,5 +357,60 @@ $(function() {
         return c_value;
     }
 
-});
+    function sync_panels () {
+        var col = document.getElementById('col_left');
+        var md  = document.getElementById('tx_input');
+        // ???       var tally = jQuery('body > h1').outerHeight();
+        var tally = null;
+        var elements = col.children;
+
+        [].forEach.call(elements, function(item) {
+            tally += outerHeight(item);
+        });
+
+        var space = col.offsetHeight - ( tally - outerHeight(md) );
+
+        document.getElementById('tx_input').style.height= space + "px";
+        document.getElementById('text_preview').style.height= space + "px";
+    }
+
+    function outerHeight(el) {
+        var height = el.offsetHeight;
+        var style = getComputedStyle(el);
+        height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+       return height;
+    }
+
+
+// http://www.chrisbuttery.com/articles/fade-in-fade-out-with-javascript/
+// fade out
+
+function fadeOut(el){
+  el.style.opacity = 1;
+
+  (function fade() {
+    if ((el.style.opacity -= .1) < 0) {
+      el.style.display = "none";
+    } else {
+      requestAnimationFrame(fade);
+    }
+  })();
+}
+
+// fade in
+
+function fadeIn(el, display){
+  el.style.opacity = 0;
+  el.style.display = display || "block";
+
+  (function fade() {
+    var val = parseFloat(el.style.opacity);
+    if (!((val += .1) > 1)) {
+      el.style.opacity = val;
+      requestAnimationFrame(fade);
+    }
+  })();
+}
+
+}); // end
 
