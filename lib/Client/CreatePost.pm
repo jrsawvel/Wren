@@ -23,7 +23,7 @@ sub show_new_post_form {
 }
 
 
-sub show_splitscreen_form {
+sub show_editor_create {
 
     my $author_name  = User::get_logged_in_author_name(); 
     my $session_id   = User::get_logged_in_session_id(); 
@@ -33,12 +33,12 @@ sub show_splitscreen_form {
         Page->report_error("user", "Cannot peform action.", "You are not logged in.");
     }
 
-    my $t = Page->new("splitscreenform");
+    my $t = Page->new("tanager");
     $t->set_template_variable("action", "addarticle");
     $t->set_template_variable("api_url", Config::get_value_for("api_url"));
     $t->set_template_variable("post_id", 0);
     $t->set_template_variable("post_rev", "undef");
-    $t->display_page_min("Creating Post - Split Screen");
+    $t->display_page_min("Creating Post - Editor");
 }
 
 

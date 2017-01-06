@@ -62,7 +62,7 @@ sub show_post_to_edit {
     }
 }
 
-sub splitscreen_edit {
+sub show_editor_update {
     my $tmp_hash = shift;  
 
     my $author_name  = User::get_logged_in_author_name(); 
@@ -101,13 +101,13 @@ sub splitscreen_edit {
     my $json = decode_json $rest->responseContent();
 
     if ( $rc >= 200 and $rc < 300 ) {
-        my $t = Page->new("splitscreenform");
+        my $t = Page->new("tanager");
         $t->set_template_variable("action", "updateblog");
         $t->set_template_variable("api_url", Config::get_value_for("api_url"));
         $t->set_template_variable("markup",     decode_entities($json->{markup}, '<>&'));
 #        $t->set_template_variable("post_id",         $post_id);
         $t->set_template_variable("post_id",         $original_slug);
-        $t->display_page_min("Editing - Split Screen " . $json->{title});
+        $t->display_page_min("Editing - Editor " . $json->{title});
     } elsif ( $rc >= 400 and $rc < 500 ) {
             Page->report_error("user", "$json->{user_message}", $json->{system_message});
     } else  {

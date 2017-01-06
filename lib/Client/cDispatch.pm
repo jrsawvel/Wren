@@ -19,8 +19,8 @@ my $dispatch_for = {
     logout             =>   sub { return \&do_sub(       "User",           "logout"                   ) },
     dologin            =>   sub { return \&do_sub(       "User",           "do_login"                 ) },
     nopwdlogin         =>   sub { return \&do_sub(       "User",           "no_password_login"        ) },
-    splitscreen        =>   sub { return \&do_sub(       "CreatePost",     "show_splitscreen_form"    ) },
-    splitscreenedit    =>   sub { return \&do_sub(       "UpdatePost",     "splitscreen_edit"         ) },
+    editorcreate       =>   sub { return \&do_sub(       "CreatePost",     "show_editor_create"       ) },
+    editorupdate       =>   sub { return \&do_sub(       "UpdatePost",     "show_editor_update"       ) },
     search             =>   sub { return \&do_sub(       "Search",         "search"                   ) },
     webmention         =>   sub { return \&do_sub(       "Webmention",     "webmention"               ) },
 };
