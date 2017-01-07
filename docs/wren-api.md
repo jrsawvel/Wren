@@ -358,5 +358,17 @@ Returned JSON:
     }
 
 
+### Webmentions
 
+This is a new take on trackback, pingback, and commenting. It's described at <https://indieweb.org/Webmention>.
+
+This uses a POST request to `/webmentions`
+
+JSON is NOT sent to the API endpoint. The POST request is `application/x-www-form-urlencoded`.
+
+In this curl example, `targetsite.com` is the Wren-powered website. "Source" refers to the website that created the reply or comment post. The reply post on the source site must contain the link of the post at the target site that is being replied to.
+
+    curl -i -d "source=http://sourcesite.com/test-webmention-reply-post.html&target=http://targetsite.com/in-2016-digital-publishers-are-finally-concerned-about-ux.html" http://targetsite.com/api/v1/webmentions
+
+The API, however, always returns JSON, according to the information at <https://webmention.net/draft>
 

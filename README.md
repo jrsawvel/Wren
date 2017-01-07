@@ -18,6 +18,7 @@
 * Reading time and word count are calculated for each post.
 * The author has a lot of freedom.
 * Optionally, the .html and .txt files can be copied to an AWS S3 bucket.
+* Accepts the Indieweb.org's version of pingback or replies, called Webmentions.
 
 
 ### Longer Description
@@ -67,5 +68,4 @@ When logged into Wren through a web browser, the author enters the commands in t
 Special formatting commands can be used within HMTL comments in the markup. The info is contained within the User Guide.
 
 The Wren Markdown is lightly flavored.
-
 
