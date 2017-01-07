@@ -358,7 +358,7 @@ Returned JSON:
     }
 
 
-### Webmentions
+### WEBMENTIONS
 
 This is a new take on trackback, pingback, and commenting. It's described at <https://indieweb.org/Webmention>.
 
