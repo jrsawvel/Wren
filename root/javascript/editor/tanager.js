@@ -5,12 +5,16 @@ var prevLength=0;
 var currLength=0;
 var isFocus=0;
 
+
+var $ = document; // shortcut
+
+
 function countKeyStrokes () {
     keyCounter++;    
 }
 
 
-document.addEventListener("DOMContentLoaded", function() {
+$.addEventListener("DOMContentLoaded", function() {
 
 //    jQuery( window ).bind( 'resize', sync_panels ).trigger( 'resize' );
 
@@ -41,26 +45,26 @@ document.addEventListener("DOMContentLoaded", function() {
         if(e.ctrlKey && e.keyCode == 'J'.charCodeAt(0)){
             e.preventDefault();
             // document.getElementsByTagName('body')[0].style.background = "#fff";
-            document.body.style.background = "#fff";
-            document.getElementById('navmenu').style.display = "none";
-            document.getElementById('tx_input').style.background = "#fff";
-            document.getElementById('tx_input').style.border = "none";
-            document.getElementById('tx_input').style.color = "#222";
-            document.getElementById('col_left').style.padding = "1em 0 0 0";
+            $.body.style.background = "#fff";
+            $.getElementById('navmenu').style.display = "none";
+            $.getElementById('tx_input').style.background = "#fff";
+            $.getElementById('tx_input').style.border = "none";
+            $.getElementById('tx_input').style.color = "#222";
+            $.getElementById('col_left').style.padding = "1em 0 0 0";
             singleScreenMode();
         }
 
         // display a 5-line text area box
         if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
             e.preventDefault();
-            document.body.style.background = "#fff";
-            document.getElementById('navmenu').style.display = "none";
-            document.getElementById('tx_input').style.background = "#fff";
-            document.getElementById('tx_input').style.border = "none";
-            document.getElementById('tx_input').style.color = "#222";
-            document.getElementById('tx_input').style.height = "150px";
-            document.getElementById('tx_input').style.margin = "30% 0 0 0";
-            document.getElementById('col_left').style.padding = "1em 0 0 0";
+            $.body.style.background = "#fff";
+            $.getElementById('navmenu').style.display = "none";
+            $.getElementById('tx_input').style.background = "#fff";
+            $.getElementById('tx_input').style.border = "none";
+            $.getElementById('tx_input').style.color = "#222";
+            $.getElementById('tx_input').style.height = "150px";
+            $.getElementById('tx_input').style.margin = "30% 0 0 0";
+            $.getElementById('col_left').style.padding = "1em 0 0 0";
 
             isFocus=1;
             singleScreenMode();
@@ -68,16 +72,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if(e.ctrlKey && e.keyCode == 'B'.charCodeAt(0)){
             e.preventDefault();
-            document.body.style.background = "#ddd";
-            document.getElementById('navmenu').style.display = "inline";
-            document.getElementById('tx_input').style.background = "#f8f8f8";
-            document.getElementById('tx_input').style.border = "1px solid #bbb";
-            document.getElementById('tx_input').style.color = "#222";
-            document.getElementById('col_left').style.padding = "0";
+            $.body.style.background = "#ddd";
+            $.getElementById('navmenu').style.display = "inline";
+            $.getElementById('tx_input').style.background = "#f8f8f8";
+            $.getElementById('tx_input').style.border = "1px solid #bbb";
+            $.getElementById('tx_input').style.color = "#222";
+            $.getElementById('col_left').style.padding = "0";
 
             if ( isFocus ) {            
-                document.getElementById('tx_input').style.margin = "0 0 0 0";
-                document.getElementById('tx_input').style.height = "100%";
+                $.getElementById('tx_input').style.margin = "0 0 0 0";
+                $.getElementById('tx_input').style.height = "100%";
 
                 ifFocus=0;
             }
@@ -86,9 +90,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if(e.ctrlKey && e.keyCode == 'D'.charCodeAt(0)){
             e.preventDefault();
-            document.body.style.background = "#181818";
-            document.getElementById('tx_input').style.background = "#181818";
-            document.getElementById('tx_input').style.color = "#c0c0c0";
+            $.body.style.background = "#181818";
+            $.getElementById('tx_input').style.background = "#181818";
+            $.getElementById('tx_input').style.color = "#c0c0c0";
         }
     }
 
@@ -101,16 +105,16 @@ document.addEventListener("DOMContentLoaded", function() {
 // SINGLE-SCREEN MODE
 // ******************** 
 
-    document.getElementById('moveButton').onclick = singleScreenMode;
+    $.getElementById('moveButton').onclick = singleScreenMode;
 
     function singleScreenMode () {
-        fadeOut(document.getElementById('text_preview'));
-        fadeIn(document.getElementById('tx_input')); // it seems this is unnecessary
-        document.getElementById('col_left').className = "singlecol"; // change css class from "col" to "singlecol"
-        document.getElementById('col_right').className = "col"; // change css class from "prevsinglecol" to "col"
-        document.getElementById('col_right').style.cssFloat = "right";
-        document.getElementById('col_right').style.position = "relative";
-        document.getElementById('tx_input').focus();
+        fadeOut($.getElementById('text_preview'));
+        fadeIn($.getElementById('tx_input')); // it seems this is unnecessary
+        $.getElementById('col_left').className = "singlecol"; // change css class from "col" to "singlecol"
+        $.getElementById('col_right').className = "col"; // change css class from "prevsinglecol" to "col"
+        $.getElementById('col_right').style.cssFloat = "right";
+        $.getElementById('col_right').style.position = "relative";
+        $.getElementById('tx_input').focus();
     }
 
 
@@ -118,18 +122,18 @@ document.addEventListener("DOMContentLoaded", function() {
 // SPLIT-SCREEN MODE
 // ******************** 
 
-    document.getElementById('resetButton').onclick = splitScreenMode;
+    $.getElementById('resetButton').onclick = splitScreenMode;
 
     function splitScreenMode () { 
-        fadeIn(document.getElementById('tx_input'));
-        fadeIn(document.getElementById('text_preview'));
+        fadeIn($.getElementById('tx_input'));
+        fadeIn($.getElementById('text_preview'));
 
-        document.getElementById('col_left').className = "col"; // change css class from "singlecol" to "col"
-        document.getElementById('col_right').className = "col"; // change css class from "prevsinglecol" to "col"
+        $.getElementById('col_left').className = "col"; // change css class from "singlecol" to "col"
+        $.getElementById('col_right').className = "col"; // change css class from "prevsinglecol" to "col"
 
-        document.getElementById('col_right').style.cssFloat = "right";
-        document.getElementById('col_right').style.position = "relative";
-        document.getElementById('tx_input').focus();
+        $.getElementById('col_right').style.cssFloat = "right";
+        $.getElementById('col_right').style.position = "relative";
+        $.getElementById('tx_input').focus();
     }
 
 
@@ -137,33 +141,25 @@ document.addEventListener("DOMContentLoaded", function() {
 // PREVIEW
 // ********** 
 
-    document.getElementById('previewButton').onclick = previewPost;
+    $.getElementById('previewButton').onclick = previewPost;
 
     function previewPost () { 
      
-        var col_type = document.getElementById('col_left').className;
-
-        var action  = document.getElementById('tanageraction').value;
-        var cgiapp  = document.getElementById('tanagercgiapp').value;
-        var apiurl  = document.getElementById('tanagerapiurl').value;        
-        var postrev = document.getElementById('tanagerpostrev').value;
-
-        var postid = 0;
-        postid = document.getElementById('tanagerpostid').value;
+        var col_type = $.getElementById('col_left').className;
 
         if ( col_type === "singlecol" ) { 
-            document.getElementById('col_left').className = "col"; // change css class from "singlecol" to "col"
+            $.getElementById('col_left').className = "col"; // change css class from "singlecol" to "col"
 
-            fadeOut(document.getElementById('tx_input'));
+            fadeOut($.getElementById('tx_input'));
 
-            document.getElementById('col_right').className = "prevsinglecol"; // change css class from "col" to "prevsinglecol"
+            $.getElementById('col_right').className = "prevsinglecol"; // change css class from "col" to "prevsinglecol"
 
-            document.getElementById('col_right').style.cssFloat = "normal";
-            document.getElementById('col_right').style.position = "absolute";
-            fadeIn(document.getElementById('text_preview'));
+            $.getElementById('col_right').style.cssFloat = "normal";
+            $.getElementById('col_right').style.position = "absolute";
+            fadeIn($.getElementById('text_preview'));
         } 
 
-        var markup = document.getElementById('tx_input').value;
+        var markup = $.getElementById('tx_input').value;
 
         var regex = /^autosave=(\d+)$/m;
         var myArray;
@@ -175,64 +171,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        markup=escape(markup);
+        var sbtype = "Preview";
 
-        var paramstr;
-
-        var author_name  = getCookie('wrenauthor_name');
-        var session_id   = getCookie('wrensession_id');
-        var rev          = getCookie('wrenrev');
-
-        var myRequest = {         // create a request object that can be serialized via JSON
-            author:      author_name,
-            session_id:  session_id,
-            rev:         rev,
-            submit_type: 'Preview',
-            form_type:   'ajax',
-            markup:      markup,
-            original_slug:     postid,
-        };
-
-        var json_str = JSON.stringify(myRequest);       
-  
-        // may need to reference this for cors or cross domain posting
-        // http://stackoverflow.com/questions/5584923/a-cors-post-request-works-from-plain-javascript-but-why-not-with-jquery
-        // or at http://blog.garstasio.com/you-dont-need-jquery/ajax/#cors
-
-        var request = new XMLHttpRequest();
-
-        if ( postid > 0 ) {
-            request.open('PUT', apiurl + '/posts', true);
-        } else {
-            request.open('POST', apiurl + '/posts', true);
-        }
-
-        request.withCredentials = true;
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-        request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-                var resp = request.responseText;
-                var obj = JSON.parse(resp);
-                if ( obj['post_type'] == "article" ) {
-                    document.getElementById('text_preview').innerHTML = '<h1>' + obj['title'] + '</h1>' + obj['html'];
-                } else {
-                    document.getElementById('text_preview').innerHTML = obj['html'];
-                }
-            } else {
-                // reached the target server, but it returned an error
-                var resp = request.responseText;
-                var obj = JSON.parse(resp);
-                document.getElementById('text_preview').innerHTML = '<h1>Error</h1>' + obj['user_message'] + ' ' + obj['system_message'];
-            }
-        };
-
-        request.onerror = function() {
-            // There was a connection error of some sort
-            document.getElementById('text_preview').innerHTML = '<h1>Server Connection Error</h1> Unable to connect to ' + apiurl + '/posts';
-        };
-
-        request.send(json_str);
+        doPreviewOrSave(markup, sbtype);
 
     } // end preview post function
 
@@ -241,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // SAVE
 // ********** 
 
-    document.getElementById('saveButton').onclick = forceSave;
+    $.getElementById('saveButton').onclick = forceSave;
 
     function forceSave () {
         keyCounter++;
@@ -249,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function savePost () {
-        var markup = document.getElementById('tx_input').value;
+        var markup = $.getElementById('tx_input').value;
 
         currLength = markup.length;
 
@@ -260,15 +201,7 @@ document.addEventListener("DOMContentLoaded", function() {
         prevLength = currLength; 
         keyCounter=0;
  
-        var col_type = document.getElementById('col_left').className;
-
-        var action  = document.getElementById('tanageraction').value;
-        var cgiapp  = document.getElementById('tanagercgiapp').value;
-        var apiurl  = document.getElementById('tanagerapiurl').value;
-        var postid  = document.getElementById('tanagerpostid').value;
-        var postrev = document.getElementById('tanagerpostrev').value;
-
-        markup=escape(markup);
+        var col_type = $.getElementById('col_left').className;
 
         var sbtype = "Create";
 
@@ -276,69 +209,28 @@ document.addEventListener("DOMContentLoaded", function() {
             sbtype = "Update";
         }
 
-        var author_name  = getCookie('wrenauthor_name');
-        var session_id   = getCookie('wrensession_id');
-        var rev          = getCookie('wrenrev');
+        doPreviewOrSave(markup, sbtype);
 
 
-        var myRequest = {         // create a request object that can be serialized via JSON
-            author:      author_name,
-            session_id:  session_id,
-            rev:         rev,
-            submit_type: sbtype,
-            form_type:   'ajax',
-            markup:      markup,
-            original_slug:     postid,
+    } // end save function
+
+
+
+    function getHiddenHTMLValues() {
+   
+        var hv = { 
+            action:   $.getElementById('tanageraction').value,
+            cgiapp:   $.getElementById('tanagercgiapp').value,
+            apiurl:   $.getElementById('tanagerapiurl').value,        
+            postrev:  $.getElementById('tanagerpostrev').value,
+            postid:   $.getElementById('tanagerpostid').value
         };
 
-        var json_str = JSON.stringify(myRequest);       
-
-        var request = new XMLHttpRequest();
-
-        if ( action === "updateblog" ) {
-            request.open('PUT', apiurl + '/posts', true);
-        } else {
-            request.open('POST', apiurl + '/posts', true);
-        }
-
-        request.withCredentials = true;
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-        request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-                var resp = request.responseText;
-                var obj = JSON.parse(resp);
-                if ( obj['post_type'] == "article" ) {
-                    document.getElementById('text_preview').innerHTML = '<h1>' + obj['title'] + '</h1>' + obj['html'];
-                } else {
-                    document.getElementById('text_preview').innerHTML = obj['html'];
-                }
-                document.getElementById('saveposttext').style.color = "#000"; 
-                // setTimeout(function() {$('#saveposttext').set({$color: '#f8f8f8'})}, 2000);
-                setTimeout(function() {document.getElementById('saveposttext').style.color = "#f8f8f8"}, 2000);
-                document.getElementById('tanageraction').value =   'updateblog';
-                document.getElementById('tanagerpostid').value =   obj['slug'];
-                document.getElementById('tanagerpostrev').value =  obj['rev']; 
-            } else {
-                // reached the target server, but it returned an error
-                var resp = request.responseText;
-                var obj = JSON.parse(resp);
-                document.getElementById('text_preview').innerHTML = '<h1>Error</h1>' + obj['user_message'] + ' ' + obj['system_message'];
-            }
-        };
-
-        request.onerror = function() {
-            // There was a connection error of some sort
-            document.getElementById('text_preview').innerHTML = '<h1>Server Connection Error</h1> Unable to connect to ' + apiurl + '/posts';
-        };
-
-        request.send(json_str);
-
-
-    } // send save function
+        return hv;
+    } 
 
     function getCookie(c_name) {
-        var c_value = document.cookie;
+        var c_value = $.cookie;
         var c_start = c_value.indexOf(" " + c_name + "=");
         if (c_start == -1) {
             c_start = c_value.indexOf(c_name + "=");
@@ -358,8 +250,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function sync_panels () {
-        var col = document.getElementById('col_left');
-        var md  = document.getElementById('tx_input');
+        var col = $.getElementById('col_left');
+        var md  = $.getElementById('tx_input');
         // ???       var tally = jQuery('body > h1').outerHeight();
         var tally = null;
         var elements = col.children;
@@ -370,8 +262,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         var space = col.offsetHeight - ( tally - outerHeight(md) );
 
-        document.getElementById('tx_input').style.height= space + "px";
-        document.getElementById('text_preview').style.height= space + "px";
+        $.getElementById('tx_input').style.height= space + "px";
+        $.getElementById('text_preview').style.height= space + "px";
     }
 
     function outerHeight(el) {
@@ -382,35 +274,104 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-// http://www.chrisbuttery.com/articles/fade-in-fade-out-with-javascript/
-// fade out
+    // http://www.chrisbuttery.com/articles/fade-in-fade-out-with-javascript/
+    // fade out
+    function fadeOut(el){
+        el.style.opacity = 1;
 
-function fadeOut(el){
-  el.style.opacity = 1;
-
-  (function fade() {
-    if ((el.style.opacity -= .1) < 0) {
-      el.style.display = "none";
-    } else {
-      requestAnimationFrame(fade);
+        (function fade() {
+            if ((el.style.opacity -= .1) < 0) {
+                el.style.display = "none";
+            } else {
+                requestAnimationFrame(fade);
+            }
+        })();
     }
-  })();
-}
 
-// fade in
+    // fade in
+    function fadeIn(el, display){
+        el.style.opacity = 0;
+        el.style.display = display || "block";
 
-function fadeIn(el, display){
-  el.style.opacity = 0;
-  el.style.display = display || "block";
-
-  (function fade() {
-    var val = parseFloat(el.style.opacity);
-    if (!((val += .1) > 1)) {
-      el.style.opacity = val;
-      requestAnimationFrame(fade);
+        (function fade() {
+            var val = parseFloat(el.style.opacity);
+            if (!((val += .1) > 1)) {
+                el.style.opacity = val;
+                requestAnimationFrame(fade);
+            }
+        })();
     }
-  })();
-}
+
+    function doPreviewOrSave(markup, sbtype) {
+
+        var hv = getHiddenHTMLValues();
+
+        var action  = hv.action;
+        var cgiapp  = hv.cgiapp;
+        var apiurl  = hv.apiurl;
+        var postrev = hv.postrev;
+        var postid  = hv.postid;
+
+        markup=escape(markup);
+
+        var myRequest = {         // create a request object that can be serialized via JSON
+            author:      getCookie('wrenauthor_name'),
+            session_id:  getCookie('wrensession_id'),
+            rev:         getCookie('wrenrev'),
+            submit_type: sbtype,
+            form_type:   'ajax',
+            markup:      markup,
+            original_slug:     postid,
+        };
+
+        var json_str = JSON.stringify(myRequest);       
+  
+        var request = new XMLHttpRequest();
+
+        if ( action === "updateblog" ) {
+            request.open('PUT', apiurl + '/posts', true);
+        } else {
+            request.open('POST', apiurl + '/posts', true);
+        }
+
+        request.withCredentials = true;
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                var resp = request.responseText;
+                var obj = JSON.parse(resp);
+                if ( obj['post_type'] == "article" ) {
+                    $.getElementById('text_preview').innerHTML = '<h1>' + obj['title'] + '</h1>' + obj['html'];
+                } else {
+                    $.getElementById('text_preview').innerHTML = obj['html'];
+                }
+                if ( sbtype === "Create" || sbtype === "Update" ) {
+                    $.getElementById('saveposttext').style.color = "#000"; 
+                    setTimeout(function() {$.getElementById('saveposttext').style.color = "#f8f8f8"}, 2000);
+                    $.getElementById('tanageraction').value =   'updateblog';
+                    $.getElementById('tanagerpostid').value =   obj['slug'];
+                    $.getElementById('tanagerpostrev').value =  obj['rev']; 
+                }      
+            } else {
+                // reached the target server, but it returned an error
+                var resp = request.responseText;
+                var obj = JSON.parse(resp);
+                $.getElementById('text_preview').innerHTML = '<h1>Error</h1>' + obj['user_message'] + ' ' + obj['system_message'];
+            }
+        };
+
+        request.onerror = function() {
+            // There was a connection error of some sort
+            $.getElementById('text_preview').innerHTML = '<h1>Server Connection Error</h1> Unable to connect to ' + apiurl + '/posts';
+        };
+
+        request.send(json_str);
+    }
 
 }); // end
+
+// may need to reference this for cors or cross domain posting
+// http://stackoverflow.com/questions/5584923/a-cors-post-request-works-from-plain-javascript-but-why-not-with-jquery
+// or at http://blog.garstasio.com/you-dont-need-jquery/ajax/#cors
 
