@@ -193,6 +193,7 @@ Create the post:
       "description":"OK",
       "author":"NickAdams",
       "title":"Test Post 8Apr2016 1113",
+      "location":"http://website/test-post-8apr2016-1113.html",
       "post_type":"article",
       "created_date":"Fri, 08 Apr 2016",
       "created_time":"15:17:06 Z",
@@ -220,6 +221,7 @@ Create a new post that gets stored in a subdirectory:
       "title":"Test Post 8Apr2016 1130",
       "slug":"test-post-8apr2016-1130",
       "dir":"2016/04/08",
+      "location":"http://website/2016/04/08/test-post-8apr2016-1130.html",
       "post_type":"article",
       "created_date":"Fri, 08 Apr 2016",
       "created_time":"15:30:30 Z",
@@ -311,6 +313,7 @@ If successful, the returned JSON would be:
       "slug":"test-post-8apr2016-1130",
       "dir":"2016/04/08",
       "post_id":"2016/04/08/test-post-8apr2016-1130",
+      "location":http://website/2016/04/08/test-post-8apr2016-1130.html",
       "post_type":"article",
       "created_date":"Fri, 08 Apr 2016",
       "created_time":"15:40:40 Z",
@@ -371,4 +374,5 @@ In this curl example, `targetsite.com` is the Wren-powered website. "Source" ref
     curl -i -d "source=http://sourcesite.com/test-webmention-reply-post.html&target=http://targetsite.com/in-2016-digital-publishers-are-finally-concerned-about-ux.html" http://targetsite.com/api/v1/webmentions
 
 The API, however, always returns JSON, according to the information at <https://webmention.net/draft>
+
 
