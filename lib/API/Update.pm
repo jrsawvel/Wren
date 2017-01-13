@@ -118,6 +118,9 @@ $hash_ref->{'custom_css'}           = $page_data->{custom_css};
             } 
             chop($hash_ref->{dir}) if $hash_ref->{dir} =~ m|[/]$|;  # remove ending forward slash if it exists
             $hash_ref->{post_id} = $hash_ref->{dir} . "/" . $hash_ref->{post_id};
+            $hash_ref->{location} = Config::get_value_for("home_page") . "/" . $hash_ref->{dir} . "/" . $hash_ref->{slug} . ".html";
+        } else {
+            $hash_ref->{location} = Config::get_value_for("home_page") . "/" . $hash_ref->{slug} . ".html";
         }
 
         if ( $submit_type eq "Update" ) {

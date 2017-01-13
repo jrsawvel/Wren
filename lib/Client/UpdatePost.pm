@@ -192,13 +192,14 @@ sub update_post {
             $t->display_page("Previewing new post");
             exit;
         } elsif ( $submit_type eq "Update" ) {
-            my $url;
-            if ( exists($json->{dir}) ) {
-                $url = Config::get_value_for("home_page") . "/" . $json->{dir} . "/" . $json->{slug} . ".html";
-            } else {
-                $url = Config::get_value_for("home_page") . "/" . $json->{slug} . ".html";
-            }
-            print $q->redirect( -url => $url);
+#            my $url;
+#            if ( exists($json->{dir}) ) {
+#                $url = Config::get_value_for("home_page") . "/" . $json->{dir} . "/" . $json->{slug} . ".html";
+#            } else {
+#                $url = Config::get_value_for("home_page") . "/" . $json->{slug} . ".html";
+#            }
+#            print $q->redirect( -url => $url);
+            print $q->redirect( -url => $json->{location});
             exit;
         }
     } elsif ( $rc >= 400 and $rc < 500 ) {

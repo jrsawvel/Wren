@@ -171,9 +171,9 @@ $.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        var sbtype = "Preview";
+        var previewing = true;
 
-        doPreviewOrSave(markup, sbtype);
+        doPreviewOrSave(markup, previewing);
 
     } // end preview post function
 
@@ -203,13 +203,9 @@ $.addEventListener("DOMContentLoaded", function() {
  
         var col_type = $.getElementById('col_left').className;
 
-        var sbtype = "Create";
+        var previewing = false;
 
-        if ( action === "updateblog" ) {
-            sbtype = "Update";
-        }
-
-        doPreviewOrSave(markup, sbtype);
+        doPreviewOrSave(markup, previewing);
 
 
     } // end save function
@@ -302,7 +298,7 @@ $.addEventListener("DOMContentLoaded", function() {
         })();
     }
 
-    function doPreviewOrSave(markup, sbtype) {
+    function doPreviewOrSave(markup, preview_flag) {
 
         var hv = getHiddenHTMLValues();
 
@@ -313,6 +309,14 @@ $.addEventListener("DOMContentLoaded", function() {
         var postid  = hv.postid;
 
         markup=escape(markup);
+
+        if ( preview_flag ) {
+            sbtype = "Preview";
+        } else if ( action === "updateblog" ) {
+            sbtype = "Update";
+        } else {
+            sbtype = "Create";
+        }
 
         var myRequest = {         // create a request object that can be serialized via JSON
             author:      getCookie('wrenauthor_name'),
@@ -347,12 +351,17 @@ $.addEventListener("DOMContentLoaded", function() {
                     $.getElementById('text_preview').innerHTML = obj['html'];
                 }
                 if ( sbtype === "Create" || sbtype === "Update" ) {
-                    $.getElementById('saveposttext').style.color = "#000"; 
+                    $.getElementById('saveposttext').style.color = "#fff"; 
+                    $.getElementById('saveposttext').style.background= "#000"; 
                     setTimeout(function() {$.getElementById('saveposttext').style.color = "#f8f8f8"}, 2000);
+                    setTimeout(function() {$.getElementById('saveposttext').style.background= "#f8f8f8"}, 2000);
                     $.getElementById('tanageraction').value =   'updateblog';
                     $.getElementById('tanagerpostid').value =   obj['slug'];
                     $.getElementById('tanagerpostrev').value =  obj['rev']; 
-                }      
+                    $.getElementById('ct').innerHTML = 'saved:' + obj['created_time'];
+                }
+                $.getElementById('wc').innerHTML = 'wc:' + obj['word_count'];
+                $.getElementById('rt').innerHTML = 'rt:' + obj['reading_time'];
             } else {
                 // reached the target server, but it returned an error
                 var resp = request.responseText;

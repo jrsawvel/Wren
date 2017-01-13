@@ -63,9 +63,9 @@ sub create_post {
     my $title        = $o->get_post_title();
     my $post_type    = $o->get_content_type(); # article or note
     my $slug         = $o->get_slug();
-my $page_data    = Format::extract_css($o->get_after_title_markup());
+    my $page_data    = Format::extract_css($o->get_after_title_markup());
     # my $html       = Format::markup_to_html($markup, $o->get_markup_type(), $slug);
-my $html         = Format::markup_to_html($page_data->{markup}, $o->get_markup_type(), $slug);
+    my $html         = Format::markup_to_html($page_data->{markup}, $o->get_markup_type(), $slug);
     # my $html         = Format::markup_to_html($o->get_after_title_markup(), $o->get_markup_type(), $slug);
     $html            = Format::create_heading_list($html, $slug);
 
@@ -87,7 +87,7 @@ my $html         = Format::markup_to_html($page_data->{markup}, $o->get_markup_t
     $hash_ref->{'word_count'}           = $post_stats->{'word_count'};
     $hash_ref->{'author'}               = Config::get_value_for("author_name"); 
     $hash_ref->{'toc'}                  = Format::get_power_command_on_off_setting_for("toc", $markup, 0);
-$hash_ref->{'custom_css'}           = $page_data->{custom_css};
+    $hash_ref->{'custom_css'}           = $page_data->{custom_css};
 
     if ( $hash_ref->{toc} ) {
         my @toc_loop = _create_table_of_contents($hash_ref->{html});
@@ -121,6 +121,9 @@ $hash_ref->{'custom_css'}           = $page_data->{custom_css};
             Error::report_error("400", "Invalid directory: $hash_ref->{dir}", " - Directory structure must start with alpha-numeric.");
         } 
         chop($hash_ref->{dir}) if $hash_ref->{dir} =~ m|[/]$|;  # remove ending forward slash if it exists
+        $hash_ref->{location} = Config::get_value_for("home_page") . "/" . $hash_ref->{dir} . "/" . $hash_ref->{slug} . ".html";
+    } else {
+        $hash_ref->{location} = Config::get_value_for("home_page") . "/" . $hash_ref->{slug} . ".html";
     }
 
     if ( $submit_type eq "Create" ) {
