@@ -376,3 +376,18 @@ In this curl example, `targetsite.com` is the Wren-powered website. "Source" ref
 The API, however, always returns JSON, according to the information at <https://webmention.net/draft>
 
 
+### RESPONSE CODES
+
+The Wren API borrowed the simple approach from the [White House Web API Standards](https://github.com/WhiteHouse/api-standards).
+
+> Use three simple, common response codes indicating (1) success, (2) failure due to client-side problem, (3) failure due to server-side problem:
+
+* 200 - OK
+* 400 - Bad Request
+* 500 - Internal Server Error
+
+The above approach goes [against the grain](http://www.micheltriana.com/blog/2013/09/27/http-status-codes-in-rest-web-api) of [recommended practices](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#http-status). Maybe in the future, I'll expand Wren's returned status codes.
+
+Since Wren is a static site generator, then accessing an HTML file that does not exist will cause the web server to throw a 404 error. Wren's Nginx config file instructs Nginx to display a custom HTML file that can be created with Wren.
+
+
