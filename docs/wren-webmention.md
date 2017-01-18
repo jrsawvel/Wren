@@ -1,6 +1,5 @@
 # Wren Webmention
 
-
 <https://indieweb.org/Webmention>
 
 <https://webmention.net/draft>
@@ -16,6 +15,8 @@ The site owner must use Wren to create a post titled Webmentions. Wren will crea
 
 Webmention links get inserted into the .txt file, and the HTML page gets rebuilt. But the site owner can edit the page, like any other Wren post, and the site owner can moderate out (delete) any unacceptable posts. The site owner can split the webmentions across multiple pages if the main page gets too big.
 
+By default, the webmentions info will get inserted into the .txt file from oldest to youngest. To reverse the list of webmentions from youngest to oldest by date, then add the comment line `<!-- insert -->` to the .txt file, possibly  below the text input fields, shown below. The new webmention will be added below the insert comment line, and then the rest of the webmentions will follow in the youngest to oldest order.
+
 Include the following HTML into the webmentions page that's associated with the file mentioned in the YAML file or in another post:
 
     <form markdown="1" action="/wren/webmention" method="post">
@@ -26,6 +27,7 @@ Include the following HTML into the webmentions page that's associated with the 
     <input class="submitbutton" type=submit name=sb value="Post Webmention"></form>
 
 Those text input fields allow a user to provide the URL to the user's reply post on his or her own site. But the commenter must also provide the URL of the Wren post being replied to.
+
 
 
 ### Using 3rd Party Service to Accept Webmentions
@@ -60,5 +62,6 @@ Currently, Wren does not automatically send Webmentions to another site's Webmen
 When replying to someone else's site that accepts Webmentions, it might be worthwhile to add the following microformat around the opening paragraph of a reply (Webmention) post.
 
     <span class="p-summary">This might be the opening paragraph in my Webmention post that is reply to a post on another website.</span>
+
 
 

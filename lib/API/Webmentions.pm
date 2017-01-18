@@ -63,13 +63,27 @@ sub webmentions {
         report_error("500", "Could not read webmentinos text file.", "File not found.");
     }
 
+    my $before;
+    my $after; 
+    my $youngest_to_oldest = 0;
+    if ( $webmentions_text =~ m/(.+)<!-- insert -->(.*)/is ) {
+        $before = $1;
+        $before .= "<!-- insert -->\n\n";
+        $after  = $2;
+        $youngest_to_oldest = 1;
+    }
+
     if ( $webmentions_text =~ m/$source_url/ ) {
         report_error("400", "already_registered", "The specified WebMention has already been registered.");
     }
 
     my $dt_hash_ref     = Utils::create_datetime_stamp();
 
-    $webmentions_text = $webmentions_text . "\n\n$dt_hash_ref->{date} $dt_hash_ref->{time}\n" . "source=<$source_url>\ntarget=<$target_url>";
+    if ( $youngest_to_oldest ) {
+        $webmentions_text = $before . "$dt_hash_ref->{date} $dt_hash_ref->{time}\n" . "source=<$source_url>\ntarget=<$target_url>\n" . $after;
+    } else {
+        $webmentions_text = $webmentions_text . "\n\n$dt_hash_ref->{date} $dt_hash_ref->{time}\n" . "source=<$source_url>\ntarget=<$target_url>";
+    } 
 
     if ( $webmentions_filename =~  m/^([a-zA-Z0-9\/\.\-_]+)$/ ) {
         $webmentions_filename = $1;
