@@ -15,9 +15,9 @@ use API::Build;
 use API::Files;
 
 
-my $links_json_file = Config::get_value_for("links_json_file");
 my $home_page_url = Config::get_value_for("home_page");
 my $doc_root = Config::get_value_for("default_doc_root");
+my $links_json_file = $doc_root . "/" . Config::get_value_for("links_json_file");
 
 my $json_text;
  
@@ -48,7 +48,7 @@ foreach my $post (@$stream) {
 sub _rebuild_html_file {
     my $text_file = shift;
 
-    my $api_url = Config::get_value_for("api_url");
+#     my $api_url = Config::get_value_for("api_url");
 
     my $original_markup;
 

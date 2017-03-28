@@ -3,7 +3,7 @@
 <!-- tmpl_if usingtoc -->
 <div id="toc">
 <!-- tmpl_loop name="toc_loop" -->
-<span class="toclevel<!-- tmpl_var name="level" -->">&#149; <a href="#<!-- tmpl_var name="cleantitle" -->"><!-- tmpl_var name="toclink" --></a></span><br />
+<span class="toclevel<!-- tmpl_var name="level" -->">- <a href="#<!-- tmpl_var name="cleantitle" -->"><!-- tmpl_var name="toclink" --></a></span><br />
 <!-- /tmpl_loop -->
 </div>
 <!-- /tmpl_if -->
@@ -11,11 +11,13 @@
 </header>
 <div class="e-content">
 <!-- tmpl_var name="html" -->
-</div>
+</div> <!-- close e-content div -->
+
 <footer style="display:none;">
 <p>
 <a class="p-author h-card"  href="/about"><!-- tmpl_var name="author_name" --></a> - 
 <a class="u-url" href="<!-- tmpl_var name="url" -->">#</a>
 </p>
 </footer>
+
 </article>

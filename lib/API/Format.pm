@@ -35,6 +35,24 @@ sub custom_commands {
     $formattedcontent =~ s/^fence[.][.]/<\/code><\/pre><\/div>/igm;
     $formattedcontent =~ s/^fence[.]/<div class="fenceClass"><pre><code>/igm;
 
+
+    # 17mar2017 - added the three backtick support
+    # hat tip to the regex in this answer: 
+    # http://unix.stackexchange.com/questions/61139/extract-triple-backtick-fenced-code-block-excerpts-from-markdown-file
+
+    my $ctr = 0;
+
+#    while ( $formattedcontent =~ /(^`{3,}\s*\n)/msg ) {
+    while ( $formattedcontent =~ /(^`{3,}\s*)/mg ) {
+        if ( !$ctr ) {
+            $formattedcontent =~ s/```/<pre><code>/;
+            $ctr = 1;
+        } elsif ( $ctr ) {
+            $formattedcontent =~ s/```/<\/code><\/pre>/;
+            $ctr = 0;
+        }
+    }
+
     return $formattedcontent;
 }
 
@@ -97,7 +115,9 @@ sub create_heading_list {
             my $heading_text = Utils::remove_html($headers[$i+1]); 
             my $heading_url  = Utils::clean_title($heading_text);
             my $oldstr = "<h$headers[$i]>$headers[$i+1]</h$headers[$i]>";
-            my $newstr = "<a name=\"$heading_url\"></a>\n<h$headers[$i]>$headers[$i+1]</h$headers[$i]>";
+            # mar 3, 2017 change below
+            # $newstr = "<a name=\"$heading_url\"></a>\n<h$headers[$i]>$headers[$i+1]</h$headers[$i]>";
+            my $newstr = "<h$headers[$i]><a id=\"$heading_url\"></a>$headers[$i+1]</h$headers[$i]>";
             $str =~ s/\Q$oldstr/$newstr/i;
             $header_list .= "<!-- header:$headers[$i]:$heading_text -->\n";   
         } 

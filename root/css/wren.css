@@ -45,8 +45,9 @@ img {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #fcfcfc;
-    color: #333;
+    /* background-color: #fcfcfc; */
+    background-color: #ffffff; 
+    color: #222;
     line-height: 1.65em;
     font-size: 21px;
 }
