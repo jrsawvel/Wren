@@ -583,8 +583,9 @@ sub _RunSpanGamut {
     $text = $self->_DoItalicsAndBold($text);
 
     # jrs - added this support 10Mar2016
-    $text = $self->_Wren_format_small($text); 
-    $text = $self->_Wren_format_big($text); 
+#commented out on 18Apr2017
+#    $text = $self->_Wren_format_small($text); 
+#    $text = $self->_Wren_format_big($text); 
 
     # FIXME - Is hard coding space here sane, or does this want to be related to tab width?
     # Do hard breaks:

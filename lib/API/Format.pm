@@ -3,6 +3,7 @@ package Format;
 use strict;
 use warnings;
 
+use Text::Textile;
 use Text::MultiMarkdownWren;
 use LWP::Simple;
 use HTML::TokeParser;
@@ -82,7 +83,13 @@ sub markup_to_html {
     if ( $markup_type eq "markdown" ) {
         my $md   = Text::MultiMarkdownWren->new;
         $html = $md->markdown($html, {newline_to_br => $newline_to_br, heading_ids => 0}  );
+    } elsif ( $markup_type eq "textile" ) {
+        my $textile = new Text::Textile;
+        $html = $textile->process($html);
     }
+
+# testing on 18apr2017
+#    $html =~ s/\[div/<div/igm;
 
     # why do this?
     $html =~ s/&#39;/'/sg;

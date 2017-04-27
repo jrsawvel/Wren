@@ -75,6 +75,8 @@ use NEXT;
         __set_template_variable($self, "pagetitle",         "$function | $site_name");
         __set_template_variable($self, "site_description",  Config::get_value_for("site_description"));
         __set_template_variable($self, "css_dir_url",       Config::get_value_for("css_dir_url")); 
+        __set_template_variable($self, "app_name",          Config::get_value_for("app_name"));
+        __set_template_variable($self, "author_name",          Config::get_value_for("author_name"));
 
         return $self->{TMPL}->output;
     }
