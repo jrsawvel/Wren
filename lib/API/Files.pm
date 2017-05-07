@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use diagnostics;
 
+use Storable 'dclone';
+use LWP::Simple;
 use Time::Local;
 use File::Path qw(make_path remove_tree);
 use JSON::PP;
@@ -286,10 +288,42 @@ sub _create_rss_file {
 
     my $stream_len = @$stream;
 
+    my $max_str_len = 250;
+
     my $max_entries = Config::get_value_for("max_entries");
+
+    $max_entries = 20; # enough for rss feed;
+
+
     my @rss_stream = ();
     for ( my $i=0; $i<$max_entries and $i<$stream_len; $i++ ) {
-        push(@rss_stream, $stream->[$i]);
+        my $tmp_hash_ref = dclone $stream->[$i];
+        my $web_page = get($tmp_hash_ref->{link});
+        if ( !$web_page ) {
+            next;
+        } else {
+            $tmp_hash_ref->{description} = $tmp_hash_ref->{title};
+            foreach my $match ($web_page =~ m/<p>(.*?)<\/p>/gs) {
+                if ( $match =~ m/^[\w]/ ) {
+                    $match =~ s/<([^>])+>|&([^;])+;//gsx;   # remove html
+                    $match = Utils::trim_spaces($match);
+                    if ( length($match) > $max_str_len ) {
+                        $match = substr $match, 0, $max_str_len - 4;
+                        $match .= " ...";
+                        $tmp_hash_ref->{description} = $match;
+                    } elsif ( length($match) < 0 ) {
+                        $tmp_hash_ref->{description} = $tmp_hash_ref->{title};
+                    } else {
+                        $tmp_hash_ref->{description} = $match;
+                    }
+                    last;
+                } else {
+                    next;
+                }
+            }
+        }
+        # $tmp_hash_ref->{description} = "testing $i";
+        push(@rss_stream, $tmp_hash_ref);
     } 
 
     my $t = Page->new("rss");
