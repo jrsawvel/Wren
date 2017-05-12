@@ -171,4 +171,32 @@ sub logout {
     }
 }
 
+sub indie_auth_login {
+
+    my $q = new CGI;
+    my $rev = $q->param("rev");
+    my $session_id = $q->param("session_id");
+    my $author_name = $q->param("author_name");
+
+   my $savepassword    = "yes";
+
+   my $cookie_prefix = Config::get_value_for("cookie_prefix");
+   my $cookie_domain = Config::get_value_for("domain_name");
+
+   my ($c1, $c2, $c3);
+
+   if ( $savepassword eq "yes" ) {
+       $c1 = $q->cookie( -name => $cookie_prefix . "author_name",  -value => "$author_name", -path => "/",  -expires => "+10y",  -domain => ".$cookie_domain");
+       $c2 = $q->cookie( -name => $cookie_prefix . "session_id",   -value => "$session_id",  -path => "/",  -expires => "+10y",  -domain => ".$cookie_domain");
+       $c3 = $q->cookie( -name => $cookie_prefix . "rev",          -value => "$rev",         -path => "/",  -expires => "+10y",  -domain => ".$cookie_domain");
+   } else {
+       $c1 = $q->cookie( -name => $cookie_prefix . "author_name",  -value => "$author_name", -path => "/",  -domain => ".$cookie_domain");
+       $c2 = $q->cookie( -name => $cookie_prefix . "session_id",   -value => "$session_id",  -path => "/",  -domain => ".$cookie_domain");
+       $c3 = $q->cookie( -name => $cookie_prefix . "rev",          -value => "$rev",         -path => "/",  -domain => ".$cookie_domain");
+   }
+
+   my $url = Config::get_value_for("home_page");
+   print $q->redirect( -url => $url, -cookie => [$c1,$c2,$c3] );
+}
+
 1;

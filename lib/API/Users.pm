@@ -6,6 +6,7 @@ use warnings;
 
 use API::Login;
 use API::Logout;
+use API::IndieAuth;
 
 sub users {
 
@@ -24,6 +25,10 @@ sub users {
             Login::activate_no_password_login();
         } elsif ( exists($tmp_hash->{1}) and $tmp_hash->{1} eq "logout" ) {
             Logout::logout();
+        } elsif ( exists($tmp_hash->{1}) and $tmp_hash->{1} eq "indieauthlogin" ) {
+            IndieAuth::do_indie_auth_login();
+        } elsif ( exists($tmp_hash->{1}) and $tmp_hash->{1} eq "auth" ) {
+            IndieAuth::authenticate();
         }
     }
 

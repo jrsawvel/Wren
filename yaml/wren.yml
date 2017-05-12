@@ -27,3 +27,8 @@
     preview_only_key:               anything-can-be-used
     aws_access_key_id:              
     aws_secret_access_key:          
+    indieauth_url:                  https://indieauth.com/auth
+    indieauth_redirect_url:         http://yourdomain.com/api/v1/users/auth/
+    indieauth_client_id:            http://yourdomain.com
+    indieauth_me:                   http://yourdomain.com
+    indieauth_wren_redirect_url:    http://yourdomain.com/wren/indieauth/

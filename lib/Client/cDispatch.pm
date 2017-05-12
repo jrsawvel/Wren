@@ -23,6 +23,7 @@ my $dispatch_for = {
     editorupdate       =>   sub { return \&do_sub(       "UpdatePost",     "show_editor_update"       ) },
     search             =>   sub { return \&do_sub(       "Search",         "search"                   ) },
     webmention         =>   sub { return \&do_sub(       "Webmention",     "webmention"               ) },
+    indieauth          =>   sub { return \&do_sub(       "User",           "indie_auth_login"         ) },
 };
 
 sub execute {
