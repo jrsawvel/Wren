@@ -1,6 +1,5 @@
 # Wren README
 
-
 ### Brief Description
 
 * Built with Perl and HTML::Template
@@ -8,7 +7,7 @@
 * No database.
 * Single-user mode only.
 * Logging in only requires an email address. A password is never used.
-* Markup support: Markdown, Multimarkdown,  and HTML. 
+* Markup support: Markdown, Multimarkdown, Textile, and HTML. 
 * Additional custom commands exist to control formatting and functionality of a post. 
 * Simple and enhanced writing areas.
 * Content headers can be used to create a table of contents for the page. 
@@ -19,6 +18,7 @@
 * The author has a lot of freedom.
 * Optionally, the .html and .txt files can be copied to an AWS S3 bucket.
 * Accepts the Indieweb.org's version of pingback or replies, called Webmentions.
+* An optional login method exists that uses the Indieweb.org's IndieAuth.
 
 
 ### Longer Description
@@ -39,9 +39,17 @@ Wren has an API, which can be accessed with command prompt utilities or [curl](h
 
 When logging into a Wren site, it uses a no-password login mechanism. The author submits an email address, and the login activation link is emailed to the address listed within the Wren YAML configuration file. The app uses [MailGun](http://www.mailgun.com/) to send these emails.
 
-Text can be formatted using [Markdown](https://daringfireball.net/projects/markdown/) and HTML commands. Actually, Wren supports MultiMarkdown, which means being able to create tables, footnotes, definition lists, and more. 
+In the spring of 2017, I added an optional login method that uses  [IndieAuth](http://indieweb.org/IndieAuth). It's possible to setup an individual IndieAuth server, but my Wren code relies on [indieauth.com](http://indieweb.org/indieauth.com). 
 
-Wren does not support Textile. That's a deviation from my other web publishing apps, especially since I have used Textile for writing since 2005. But within one of my Grebe-based web sites, I've tried to use Markdown more, and I've tried to minimize the formatting that I do. Keep it simple.
+To login via IndieAuth, a website's homepage URL is entered. It could be the URL of the website that is powered by Wren, or it can be another website. But the website must be owned by the author. The author must also possess an account at a popular service, such as GitHub, Twitter or Google. The full explanation for using IndieAuth and how it works can be found at the above links. 
+ 
+With Wren, text can be formatted using [Markdown](https://daringfireball.net/projects/markdown/) and HTML commands. Actually, Wren supports MultiMarkdown, which means being able to create tables, footnotes, definition lists, and more. 
+
+In the spring of 2017, I added [support](http://toledotalk.com/cgi-bin/tt.pl/article/37/Textile) for [Textile](http://toledotalk.com/cgi-bin/tt.pl/article/63/Textile_quick_reference). For my newer websites, I write in Markdown. For my older websites, I write in Textile. I've been writing in Textile, since 2005. I want to import old Textile-based content into a Wren-powered website.
+
+In recent years, I've tried to minimize the formatting that I do for a web article. Keep it simple. And Markdown satisfies my needs, nearly all of the time.
+
+To allow comments, Wren supports the Indieweb.org's [Webmention](http://indieweb.org/Webmention) protocol. This is an optional setup. Wren displays Webmentions in two different styles. More information can be found in the Wren document about Webmentions.
 
 These are my test Wren sites that use a combination of new posts and posts that I created elsewhere in the past:
 
@@ -68,4 +76,5 @@ When logged into Wren through a web browser, the author enters the commands in t
 Special formatting commands can be used within HMTL comments in the markup. The info is contained within the User Guide.
 
 The Wren Markdown is lightly flavored.
+
 
