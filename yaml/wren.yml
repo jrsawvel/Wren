@@ -20,6 +20,7 @@
     mailgun_from:                   Mailgun Sandbox <mailgun_from>
     links_json_file:                links.json
     rss_file:                       rss.xml
+    json_feed_file:                 feed.json
     mft_file:                       mft.html
     sitemap_file:                   sitemap.xml
     webmentions_file:               webmentions.txt

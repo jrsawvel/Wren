@@ -74,7 +74,7 @@ sub output {
        my $stream = _update_json_file($hash_ref); 
        _create_rss_file($hash_ref, $stream);
        _create_microformatted_file($hash_ref, $stream);
-       _create_sitemap_file($stream);
+#       _create_sitemap_file($stream);
     }
 
     _copy_to_s3_bucket($hash_ref, $markup, $html_output);
@@ -292,12 +292,10 @@ sub _create_rss_file {
 
     my $max_entries = Config::get_value_for("max_entries");
 
-    $max_entries = 20; # enough for rss feed;
-
-
     my @rss_stream = ();
     for ( my $i=0; $i<$max_entries and $i<$stream_len; $i++ ) {
-        my $tmp_hash_ref = dclone $stream->[$i];
+#        my $tmp_hash_ref = dclone $stream->[$i];
+        my $tmp_hash_ref = $stream->[$i];
         my $web_page = get($tmp_hash_ref->{link});
         if ( !$web_page ) {
             next;
@@ -340,13 +338,50 @@ sub _create_rss_file {
     if ( $rss_filename =~  m/^([a-zA-Z0-9\/\.\-_]+)$/ ) {
         $rss_filename = $1;
     } else {
-        Error::report_error("500", "Bad file name.", "Could not write rss file. $!");
+        Error::report_error("500", "Bad file name.", "Could not write RSS file. $!");
     }
-    open FILE, ">$rss_filename" or Error::report_error("500", "Unable to open rss file for write.", "$!");
+    open FILE, ">$rss_filename" or Error::report_error("500", "Unable to open RSS file for write.", "$!");
     print FILE $rss_output . "\n";
     close FILE;
 
 #    S3::copy_to_s3(Config::get_value_for("rss_file"),  $rss_output, "text/xml");
+
+
+    ############## create JSON feed file
+
+    my $ctr = 0;
+    foreach my $entry_ref ( @rss_stream ) {
+        $entry_ref->{title} =~ s/"/\\"/g;
+        $entry_ref->{description} =~ s/"/\\"/g;
+        $entry_ref->{comma} = ",";
+        $ctr++;
+    }
+
+    $rss_stream[$ctr-1]->{comma} = "";    
+    
+
+    $t = Page->new("jsonfeed");
+    $t->set_template_variable("site_name",         Config::get_value_for("site_name"));
+    $t->set_template_variable("link",              Config::get_value_for("home_page")); 
+    $t->set_template_variable("site_description",  Config::get_value_for("site_description"));
+    $t->set_template_variable("app_name",          Config::get_value_for("app_name"));
+    $t->set_template_variable("current_date_time", "$hash_ref->{created_date} $hash_ref->{created_time}");
+    $t->set_template_loop_data("article_loop", \@rss_stream);
+    my $json_feed_output  = $t->create_file();
+
+    # write json feed to file
+    my $json_feed_filename = Config::get_value_for("default_doc_root") . "/" . Config::get_value_for("json_feed_file");
+    if ( $json_feed_filename =~  m/^([a-zA-Z0-9\/\.\-_]+)$/ ) {
+        $json_feed_filename = $1;
+    } else {
+        Error::report_error("500", "Bad file name.", "Could not write JSON feed file. $!");
+    }
+    open FILE, ">$json_feed_filename" or Error::report_error("500", "Unable to open JSON feed file for write.", "$!");
+    print FILE $json_feed_output . "\n";
+    close FILE;
+
+#    S3::copy_to_s3(Config::get_value_for("json_feed_file"),  $json_feed_output, "text/json");
+
 }
 
 
@@ -390,6 +425,7 @@ sub _create_microformatted_file {
     my $max_entries = Config::get_value_for("max_entries");
     my @mft_stream = ();
     for ( my $i=0; $i<$max_entries and $i<$stream_len; $i++ ) {
+        delete($stream->[$i]->{comma});
         push(@mft_stream, $stream->[$i]);
     } 
 
