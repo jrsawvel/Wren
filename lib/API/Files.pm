@@ -74,7 +74,7 @@ sub output {
        my $stream = _update_json_file($hash_ref); 
        _create_rss_file($hash_ref, $stream);
        _create_microformatted_file($hash_ref, $stream);
-#       _create_sitemap_file($stream);
+       _create_sitemap_file($stream);
     }
 
     _copy_to_s3_bucket($hash_ref, $markup, $html_output);
@@ -394,6 +394,7 @@ sub _create_sitemap_file {
         delete($hash_ref->{title});
         delete($hash_ref->{pubDate});
         delete($hash_ref->{author});
+        delete($hash_ref->{description});
         push(@links, $hash_ref);
     }
 
