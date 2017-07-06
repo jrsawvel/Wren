@@ -33,3 +33,5 @@
     indieauth_client_id:            http://yourdomain.com
     indieauth_me:                   http://yourdomain.com
     indieauth_wren_redirect_url:    http://yourdomain.com/wren/indieauth/
+    bridgy_target_url_twitter:      http://brid.gy/publish/twitter 
+    bridgy_webmention_endpoint_twitter:     https://brid.gy/publish/webmention
