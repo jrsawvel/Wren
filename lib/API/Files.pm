@@ -11,6 +11,7 @@ use File::Path qw(make_path remove_tree);
 use JSON::PP;
 use API::Error;
 use API::S3;
+use API::Webmentions;
 
 
 sub output {
@@ -22,8 +23,10 @@ sub output {
 
     if ( exists($hash_ref->{template}) ) {
         $t = Page->new($hash_ref->{template});
-    } else {
+    } elsif ( $hash_ref->{post_type} eq "article" ) {
         $t = Page->new("articlehtml");
+    } else {
+        $t = Page->new("notehtml");
     }
        
     my $html = $hash_ref->{html};
@@ -78,6 +81,15 @@ sub output {
     }
 
     _copy_to_s3_bucket($hash_ref, $markup, $html_output);
+
+    if ( $submit_type eq "create" and exists($hash_ref->{reply_to}) ) {
+        # source url (reply) and target url (post replying to)
+        Webmentions::send_webmention($hash_ref->{location}, $hash_ref->{reply_to});
+    }
+
+    if ( $submit_type eq "create" and exists($hash_ref->{syn_to}) ) {
+        Webmentions::send_webmention_to_bridgy($hash_ref->{location}, $hash_ref->{syn_to});
+    }
 
     return 1;
 }
@@ -356,8 +368,8 @@ sub _create_rss_file {
     $json_hash_ref->{home_page_url}  =  Config::get_value_for("home_page"); 
     $json_hash_ref->{feed_url}       =  Config::get_value_for("home_page") . "/feed.json";
     $json_hash_ref->{description}    =  Config::get_value_for("site_name") . " " . Config::get_value_for("site_description");
-    $json_hash_ref->{pubDate}        =  $hash_ref->{created_date} . " " . $hash_ref->{created_time};
-    $json_hash_ref->{generator}      =  Config::get_value_for("app_name");
+#    $json_hash_ref->{pubDate}        =  $hash_ref->{created_date} . " " . $hash_ref->{created_time};
+#    $json_hash_ref->{generator}      =  Config::get_value_for("app_name");
 
     my @items = ();
 
@@ -367,7 +379,7 @@ sub _create_rss_file {
         $h->{url}             =  $hr->{link};     
         $h->{title}           =  $hr->{title};     
         $h->{author}          =  { "name" => $hr->{author} };
-        $h->{date_published}  =  $hr->{pubDate};     
+        $h->{date_published}  =  Utils::convert_date_time_to_iso8601_format($hr->{pubDate});     
         $h->{content_text}    =  $hr->{description};     
         push(@items, $h);
     }
