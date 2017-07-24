@@ -55,12 +55,12 @@ sub webmentions {
     my $webmentions_text;
  
     if ( -e $webmentions_filename ) {
-        open(my $fh, "<", $webmentions_filename ) or report_error("500", "Could not open links JSON file for read.", $!);
+        open(my $fh, "<", $webmentions_filename ) or report_error("500", "Could not open webmentions text file for read.", $!);
         while ( <$fh> ) {
             # chomp;
             $webmentions_text .= $_; 
         }
-        close($fh) or report_error("500", "Could not close links JSON file after reading.", $!);
+        close($fh) or report_error("500", "Could not close webmentions text file after reading.", $!);
     } else {
         report_error("500", "Could not read webmentinos text file.", "File not found.");
     }
