@@ -1,5 +1,6 @@
 # Wren API
 
+
 In the Wren YAML config file `wren.yml`, an entry exists that specifies the API location:
 
 `api_url  :  http://website/api/v1`
@@ -325,7 +326,7 @@ If successful, the returned JSON would be:
 
 If custom CSS was used in the markup, then the name-value `custom_css` along with the actual CSS is included in the returned JSON.
 
-The `post_type` is a holdover from another app. Currently, all Wren posts are considered to be "articles", which means the `post_type` is unnecessary. My other web publishing apps differentiated between "articles" and "notes". The key difference being that "notes" did not have a title.
+`post_type` can be either an "article" or a "note". The note-type of posts do not have a title.
 
 
 
@@ -376,6 +377,20 @@ In this curl example, `targetsite.com` is the Wren-powered website. "Source" ref
 The API, however, always returns JSON, according to the information at <https://webmention.net/draft>
 
 
+### Micropub
+
+Wren supports Micropub on the server. More about Micropub and its spec can be found at <https://indieweb.org/Micropub>.
+
+Micropub clients created by other developers can be used to create posts at Wren websites.
+
+The client makes a POST request to the Wren Micropub endpoint found at `/micropub`.
+
+According to the [Micropub W3C spec](https://www.w3.org/TR/micropub), the client can send either JSON or x-www-form-urlencoded data.
+
+The Wren Micropub server implementation supports the `in-reply-to` attribute. When a user creates a reply post with a Micropub client, the user enters the URL to the post being replied to within the Micropub client, and that info is sent to the Wren Micropub endpoint in the `in-reply-to` name=value field. Wren determines that the new post is a reply, and then Wren sends a Webmention to the website that is suppose to receive the reply.
+
+
+
 ### RESPONSE CODES
 
 The Wren API borrowed the simple approach from the [White House Web API Standards](https://github.com/WhiteHouse/api-standards).
@@ -390,4 +405,6 @@ The above approach goes [against the grain](http://www.micheltriana.com/blog/201
 
 Since Wren is a static site generator, then accessing an HTML file that does not exist will cause the web server to throw a 404 error. Wren's Nginx config file instructs Nginx to display a custom HTML file that can be created with Wren.
 
+
+*updated Sep 6, 2017*
 
